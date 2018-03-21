@@ -1,1 +1,1 @@
-#pragma once
+//#include "QintC.h"
