@@ -6,6 +6,7 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 using namespace std;
+#include <string>
 namespace QIntCalculator {
 	using namespace QIntCalculator;
 	/// <summary>
@@ -496,6 +497,7 @@ namespace QIntCalculator {
 			this->btnEqual->TabIndex = 44;
 			this->btnEqual->Text = L"=";
 			this->btnEqual->UseVisualStyleBackColor = false;
+			this->btnEqual->Click += gcnew System::EventHandler(this, &QintC::btnEqual_Click);
 			// 
 			// btnAdd
 			// 
@@ -611,6 +613,7 @@ namespace QIntCalculator {
 			// 
 			// btn3
 			// 
+			this->btn3->BackColor = System::Drawing::SystemColors::ControlDarkDark;
 			this->btn3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btn3->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -620,7 +623,7 @@ namespace QIntCalculator {
 			this->btn3->Size = System::Drawing::Size(53, 40);
 			this->btn3->TabIndex = 33;
 			this->btn3->Text = L"3";
-			this->btn3->UseVisualStyleBackColor = true;
+			this->btn3->UseVisualStyleBackColor = false;
 			this->btn3->Click += gcnew System::EventHandler(this, &QintC::btn3_Click);
 			// 
 			// btn2
@@ -709,6 +712,13 @@ namespace QIntCalculator {
 
 		}
 #pragma endregion
+void MarshalString(String ^ s, string& os)
+{
+	using namespace Runtime::InteropServices;
+	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+	os = chars;
+	Marshal::FreeHGlobal(IntPtr((void*)chars));
+}
 private: void AddToInput(String^ s)
 	{
 	//QIntCalculator::QintC::instance->tbInput->Paste(s);
@@ -828,6 +838,7 @@ private: System::Void QintC_KeyPress(System::Object^  sender, System::Windows::F
 	case '^': btnXor_Click(sender, e); break;
 	case '~': btnNot_Click(sender, e); break;
 	case 8: btnDel_Click(sender, e); break;	//Mã ASCII của phím backspace
+	case 13: btnEqual_Click(sender, e); break; //Nhấn enter hoặc dấu =, xem như kết thúc phép tính
 	}
 }
 private: System::Void rbHEX_CheckedChanged(Object^  sender, EventArgs^  e) {
@@ -898,6 +909,12 @@ private: System::Void rbBIN_CheckedChanged(System::Object^  sender, System::Even
 	btn7->Enabled = false;
 	btn8->Enabled = false;
 	btn9->Enabled = false;
+}
+private: System::Void btnEqual_Click(System::Object^  sender, System::EventArgs^  e) {
+	string a = "";
+	MarshalString(tbInput->Text, a);
+	int n = a.find('+');
+	MessageBox::Show(n.ToString());
 }
 };
 }

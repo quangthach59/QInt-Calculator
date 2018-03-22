@@ -3,7 +3,8 @@ using namespace System;
 using namespace System::Windows::Forms;
 
 [STAThreadAttribute]
-void Main(array<String^>^ args)
+//void Main(array<String^>^ args)
+void Main()
 {
 	//Code khởi chạy giao diện windows form
 	Application::EnableVisualStyles();
