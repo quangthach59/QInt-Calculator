@@ -117,7 +117,7 @@ vector<bool> HexToBin(string H)
 //Hàm Chia một số Thập Phân cho 2
 //Input: Chuỗi số Thập Phân(String Dec)
 //Output: CHuỗi Thập Phân kết quả
-string IntDiv2(string Dec)
+int IntDiv2(string &Dec)
 {
 	int nho = 0;
 	for (int i = 0; i < Dec.length(); i++)
@@ -132,7 +132,119 @@ string IntDiv2(string Dec)
 	{
 		Dec.erase(Dec.begin());
 	}
+	return nho;
+}
+//Chuyển từ 10 qua 2
+//Input: Chuỗi string
+//Output: Chuỗi nhị phân kết quả
+vector<bool> DecToBin(string Dec)
+{
+	int R;
+	vector<bool> tmp;
+	vector<bool> Result;
+	while (Dec != "")
+	{
+		R = IntDiv2(Dec);
+		tmp.push_back(R);
+	}
+	for (int i = 0; i < tmp.size(); i++)
+	{
+		Result.push_back(tmp[tmp.size() - i - 1]);
+	}
+	return Result;
+}
+//Hàm nhân 2
+//Ipnut: Số n
+//Output: Kết quả nhân
+string Multiply(string a)//16
+{
+	int len = a.length() - 1;
+	int nho = 0;
+	for (int i = len; i >= 0; i--)
+	{
+		int k = (a[i] - 48) * 2;
+		a[i] = (k + nho) % 10 + 48;
+		if (k >= 10)
+		{
+			nho = 1;
+		}
+		else
+		{
+			nho = 0;
+		}
+	}
+	if (nho == 1)
+	{
+		a = '1' + a;
+	}
+	return a;
+}
+//Hàm Power tunhs 2 mũ n
+//Input: Số nguyên n
+//Output: Chuỗi kết quả
+string Power(int n)
+{
+	string kq = "1";
+	for (int i = 0; i < n; i++)
+	{
+		Multiply(kq);
+	}
+	return kq;
+}
+//Cộng 2 số nguyên
+//Input: 2 chuỗi 
+//Output//1 chuỗi kết quả
+string Sum(string a, string b)
+{
+	string kq;
+	int lenA = a.length() - 1;
+	int lenB = b.length() - 1;
+	if (lenA > lenB)
+	{
+		for (int i = 0; i < lenA - lenB; i++)
+		{
+			b = '0' + b;
+		}
+		lenB = lenA;
+	}
+	else if (lenB > lenA)
+	{
+		for (int i = 0; i < lenB - lenA; i++)
+		{
+			a = '0' + a;
+		}
+		lenA = lenB;
+	}
+	int nho = 0;
+	for (int i = lenA; i >= 0; i--)
+	{
+		int k = (a[i] - 48) + (b[i] - 48);
+		kq = (char)((k + nho) % 10 + 48) + kq;
+		if (k >= 10)
+		{
+			nho = 1;
+		}
+		else
+		{
+			nho = 0;
+		}
+	}
+	if (nho == 1)
+	{
+		kq = '1' + kq;
+	}
+	return kq;
+}
+//Chuyển từ 2 qua 10
+//Input: Chuỗi nhị phân
+//Output: Chuỗi thập phân
+string BinToDecStr(vector<bool> Bin)
+{
+	int k = Bin.size();
+	string Dec="0";
+	for (int i = k - 1; i >= 0; i--)
+	{
+		Dec = Sum(Dec, Power(k - i));
+	}
 	return Dec;
 }
-
-

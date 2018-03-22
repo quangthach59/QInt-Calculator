@@ -118,4 +118,5 @@ vector<bool> HexToBin(string H);
 //Hàm Chia một số Thập Phân cho 2
 //Input: Chuỗi số Thập Phân(String Dec)
 //Output: CHuỗi Thập Phân kết quả
-string IntDiv2(string Dec);
+int IntDiv2(string &Dec);
+vector<bool> DecToBin(string Dec);
