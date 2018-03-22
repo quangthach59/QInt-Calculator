@@ -2,6 +2,18 @@
 
 
 
+//Hàm lấy bit từ Qint ra Mảng bool
+//Input: Số nguyên lớn(Qint Q)
+//Output: Mảng động bool nhị phân
+bool* DecToBin(Qnit Q)
+{
+	bool *a = new bool[128];
+	for (int i = 0; i < 128; i++)
+	{
+		if()
+	}
+}
+
 //Hàm chuyển từng kí tự từ hệ 16 sang Binary tương ứng
 //Input: Kí tự hệ 16(char Hex)
 //Output: Chuỗi Bit tương ứng (string)
@@ -9,7 +21,7 @@ string Translate(char Hex)
 {
 	switch (Hex)
 	{
-	case '0': return "0000";
+	case '0': return "0000"; 
 	case '1': return "0001";
 	case '2': return "0010";
 	case '3': return "0011";
@@ -84,3 +96,5 @@ string IntDiv2(string Dec)
 	}
 	return Dec;
 }
+
+
