@@ -719,6 +719,19 @@ void MarshalString(String ^ s, string& os)
 	os = chars;
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
 }
+string Str_to_str(String^ s)
+{
+	string os;
+	using namespace Runtime::InteropServices;
+	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+	os = chars;
+	return os;
+}
+String^ str_to_Str(string s)
+{
+	String^ os = gcnew String(s.c_str());
+	return os;
+}
 private: void AddToInput(String^ s)
 	{
 	//QIntCalculator::QintC::instance->tbInput->Paste(s);
@@ -911,10 +924,21 @@ private: System::Void rbBIN_CheckedChanged(System::Object^  sender, System::Even
 	btn9->Enabled = false;
 }
 private: System::Void btnEqual_Click(System::Object^  sender, System::EventArgs^  e) {
-	string a = "";
-	MarshalString(tbInput->Text, a);
-	int n = a.find('+');
-	MessageBox::Show(n.ToString());
+	string a = Str_to_str(tbInput->Text);
+	int n = a.find_first_not_of("0123456789ABCDEF");
+	if (n > 0)
+	{
+		string p1, p2, p3;
+		p2 = a[n];
+		p1 = a.substr(0, n);
+		p3 = a.substr(n + 1, a.length()-1);
+		String^ rs = str_to_Str("First object: " + p1 + ", operator: " + p2 + ", second object " + p3);
+		MessageBox::Show(rs);
+	}
+	else
+	{
+		MessageBox::Show("Invalid calculation!");
+	}
 }
 };
 }
