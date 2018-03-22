@@ -4,37 +4,41 @@
 
 using namespace std;
 
-class Qnit
+struct Qint
 {
-private:
 	int data[4];
-public:
-	Qnit()
-	{
-		data[0] = data[1] = data[2] = data[3] = 0;
-	}
-
-	void SetQnit(bool *x, int len)
-	{
-		for (int i = 0; i < len; i++)
-		{
-			if (x[i] == 1)
-			{
-				data[4 - len / 32 - 1] |= (1 << (32 - len % 32 - 1));
-			}
-		}
-	}
-
-	void Showbit()
-	{
-		for (int i = 0; i < 128; i++)
-		{
-
-			cout << ((data[i / 32] >> 31 - (i % 32)) & 1);
-		}
-		cout << endl;
-	}
 };
+
+//Hàm đổi Nhị Phân sang Qint
+//Input: Số nhị phân (bool *x)
+//output: Số Qint tương ứng
+Qint BinToDec(bool *x)
+{
+	Qint Q;
+	for (int i = 0; i < 128; i++)
+	{
+		if (x[i] == 1)
+		{
+			Q.data[4 - len / 32 - 1] |= (1 << (32 - len % 32 - 1));
+		}
+	}
+	return Q;
+}
+
+//Hàm 
+void Showbit(Qint Q)
+{
+	for (int i = 0; i < 128; i++)
+	{
+
+		cout << ((Q.data[i / 32] >> 31 - (i % 32)) & 1);
+	}
+	cout << endl;
+}
+
+
+	
+
 
 //-----------------------------------------------
 //XỬ LÝ ĐỔI HỆ 16 VỀ NHỊ PHÂN 
@@ -58,6 +62,61 @@ bool* StrBinToBin(string bin);
 //Input: Chuỗi hệ 16 (String H), độ dài chuỗi H (int &len)
 //Output: Mảng bool hệ Nhị Phân
 bool* HexToBin(string H, int &len);
+
+////Hàm chứ từ điển chuyển Bit sang Hex
+//char BitTo1Hex(bool bit[4])
+//{
+//	int value = bit[0] * pow(2, 3) + bit[1] * pow(2, 2) + bit[2] * pow(2, 1) + bit[3];
+//	switch (value)
+//	{
+//	case 0: return '0';
+//	case 1: return '1';
+//	case 2: return '2';
+//	case 3: return '3';
+//	case 4: return '4';
+//	case 5: return '5';
+//	case 6: return '6';
+//	case 7: return '7';
+//	case 8: return '8';
+//	case 9: return '9';
+//	case 10: return 'A';
+//	case 11: return 'B';
+//	case 12: return 'C';
+//	case 13: return 'D';
+//	case 14: return 'E';
+//	case 15: return 'F';
+//	}
+//}
+//
+//char* CreatBin()
+//{
+//	char *a = new char[128];
+//	for (int i = 0; i < 128; i++)
+//	{
+//		a[i] = 0;
+//	}
+//	return a;
+//}
+//
+////Hàm chuyển Nhị Phân sang Thập Lục Phân
+////Input: Số nhị phân(bool *bin)
+////Output: CHuỗi chứa hệ 16 tương ứng(char*)
+//char* BinToHex(bool *bit)
+//{
+//	char* kq = CreatBin();
+//	int n = 0;
+//	bool temp[4];
+//	for (int i = 127; i >= 0; i--)
+//	{
+//		if (i % 4 == 0  && i != 0)
+//		{
+//			kq[n] = BitTo1Hex(temp);
+//			n++;
+//		}
+//		temp[i % 4] = bit[i];
+//
+//	}
+//}
 
 
 
