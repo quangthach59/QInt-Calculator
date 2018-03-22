@@ -5,12 +5,13 @@ using namespace System::Collections;
 using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
+using namespace std;
 namespace QIntCalculator {
-
+	using namespace QIntCalculator;
 	/// <summary>
 	/// Summary for QintC
 	/// </summary>
-	public ref class QintC : public System::Windows::Forms::Form
+	public ref class QintC : public Form
 	{
 	public:
 		static QintC^ instance;
@@ -35,8 +36,9 @@ namespace QIntCalculator {
 			}
 		}
 	public: System::Windows::Forms::TextBox^  tbInput;
+	public: System::Windows::Forms::TextBox^  tbOutput;
 	protected:
-	public: System::Windows::Forms::TextBox^  textBox1;
+
 	public: System::Windows::Forms::Label^  label1;
 	public: System::Windows::Forms::RadioButton^  rbHEX;
 	public: System::Windows::Forms::RadioButton^  rbDEC;
@@ -72,45 +74,6 @@ namespace QIntCalculator {
 	public: System::Windows::Forms::Button^  btn2;
 	public: System::Windows::Forms::Button^  btn1;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	protected:
 
 	private:
@@ -127,7 +90,7 @@ namespace QIntCalculator {
 		void InitializeComponent(void)
 		{
 			this->tbInput = (gcnew System::Windows::Forms::TextBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->tbOutput = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->rbHEX = (gcnew System::Windows::Forms::RadioButton());
 			this->rbDEC = (gcnew System::Windows::Forms::RadioButton());
@@ -167,10 +130,13 @@ namespace QIntCalculator {
 			// tbInput
 			// 
 			this->tbInput->AcceptsReturn = true;
+			this->tbInput->BackColor = System::Drawing::SystemColors::ControlDarkDark;
+			this->tbInput->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->tbInput->CharacterCasing = System::Windows::Forms::CharacterCasing::Upper;
 			this->tbInput->Dock = System::Windows::Forms::DockStyle::Top;
 			this->tbInput->Font = (gcnew System::Drawing::Font(L"Consolas", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->tbInput->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->tbInput->Location = System::Drawing::Point(0, 0);
 			this->tbInput->Multiline = true;
 			this->tbInput->Name = L"tbInput";
@@ -178,19 +144,24 @@ namespace QIntCalculator {
 			this->tbInput->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->tbInput->Size = System::Drawing::Size(359, 105);
 			this->tbInput->TabIndex = 0;
+			this->tbInput->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
-			// textBox1
+			// tbOutput
 			// 
-			this->textBox1->AcceptsReturn = true;
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Consolas", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbOutput->AcceptsReturn = true;
+			this->tbOutput->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->tbOutput->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->tbOutput->Font = (gcnew System::Drawing::Font(L"Consolas", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(0, 106);
-			this->textBox1->Multiline = true;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->ReadOnly = true;
-			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(359, 82);
-			this->textBox1->TabIndex = 1;
+			this->tbOutput->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->tbOutput->Location = System::Drawing::Point(0, 106);
+			this->tbOutput->Multiline = true;
+			this->tbOutput->Name = L"tbOutput";
+			this->tbOutput->ReadOnly = true;
+			this->tbOutput->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->tbOutput->Size = System::Drawing::Size(359, 82);
+			this->tbOutput->TabIndex = 1;
+			this->tbOutput->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// label1
 			// 
@@ -216,6 +187,7 @@ namespace QIntCalculator {
 			this->rbHEX->TabIndex = 3;
 			this->rbHEX->Text = L"HEX";
 			this->rbHEX->UseVisualStyleBackColor = true;
+			this->rbHEX->CheckedChanged += gcnew System::EventHandler(this, &QintC::rbHEX_CheckedChanged);
 			// 
 			// rbDEC
 			// 
@@ -231,6 +203,7 @@ namespace QIntCalculator {
 			this->rbDEC->TabStop = true;
 			this->rbDEC->Text = L"DEC";
 			this->rbDEC->UseVisualStyleBackColor = true;
+			this->rbDEC->CheckedChanged += gcnew System::EventHandler(this, &QintC::rbDEC_CheckedChanged);
 			// 
 			// rbBIN
 			// 
@@ -244,6 +217,7 @@ namespace QIntCalculator {
 			this->rbBIN->TabIndex = 5;
 			this->rbBIN->Text = L"BIN";
 			this->rbBIN->UseVisualStyleBackColor = true;
+			this->rbBIN->CheckedChanged += gcnew System::EventHandler(this, &QintC::rbBIN_CheckedChanged);
 			// 
 			// btnImport
 			// 
@@ -261,6 +235,7 @@ namespace QIntCalculator {
 			// 
 			// btnA
 			// 
+			this->btnA->Enabled = false;
 			this->btnA->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnA->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -275,6 +250,7 @@ namespace QIntCalculator {
 			// 
 			// btnB
 			// 
+			this->btnB->Enabled = false;
 			this->btnB->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnB->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -289,6 +265,7 @@ namespace QIntCalculator {
 			// 
 			// btnC
 			// 
+			this->btnC->Enabled = false;
 			this->btnC->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnC->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -303,6 +280,7 @@ namespace QIntCalculator {
 			// 
 			// btnD
 			// 
+			this->btnD->Enabled = false;
 			this->btnD->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnD->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -317,6 +295,7 @@ namespace QIntCalculator {
 			// 
 			// btnE
 			// 
+			this->btnE->Enabled = false;
 			this->btnE->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnE->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -331,6 +310,7 @@ namespace QIntCalculator {
 			// 
 			// btnF
 			// 
+			this->btnF->Enabled = false;
 			this->btnF->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnF->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -345,6 +325,7 @@ namespace QIntCalculator {
 			// 
 			// btnSRight
 			// 
+			this->btnSRight->Enabled = false;
 			this->btnSRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSRight->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -358,6 +339,7 @@ namespace QIntCalculator {
 			// 
 			// btnSLeft
 			// 
+			this->btnSLeft->Enabled = false;
 			this->btnSLeft->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSLeft->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -371,6 +353,7 @@ namespace QIntCalculator {
 			// 
 			// btnNot
 			// 
+			this->btnNot->Enabled = false;
 			this->btnNot->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnNot->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -385,6 +368,7 @@ namespace QIntCalculator {
 			// 
 			// btnXor
 			// 
+			this->btnXor->Enabled = false;
 			this->btnXor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnXor->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -399,6 +383,7 @@ namespace QIntCalculator {
 			// 
 			// btnOr
 			// 
+			this->btnOr->Enabled = false;
 			this->btnOr->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnOr->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -413,6 +398,7 @@ namespace QIntCalculator {
 			// 
 			// btnAnd
 			// 
+			this->btnAnd->Enabled = false;
 			this->btnAnd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnAnd->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -438,6 +424,7 @@ namespace QIntCalculator {
 			this->btnClear->TabIndex = 46;
 			this->btnClear->Text = L"C";
 			this->btnClear->UseVisualStyleBackColor = false;
+			this->btnClear->Click += gcnew System::EventHandler(this, &QintC::btnClear_Click);
 			// 
 			// btnDel
 			// 
@@ -452,6 +439,7 @@ namespace QIntCalculator {
 			this->btnDel->TabIndex = 45;
 			this->btnDel->Text = L"◄";
 			this->btnDel->UseVisualStyleBackColor = false;
+			this->btnDel->Click += gcnew System::EventHandler(this, &QintC::btnDel_Click);
 			// 
 			// btnDivide
 			// 
@@ -703,7 +691,7 @@ namespace QIntCalculator {
 			this->Controls->Add(this->rbDEC);
 			this->Controls->Add(this->rbHEX);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->tbOutput);
 			this->Controls->Add(this->tbInput);
 			this->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -715,6 +703,7 @@ namespace QIntCalculator {
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"QInt Calculator";
 			this->Load += gcnew System::EventHandler(this, &QintC::QintC_Load);
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &QintC::QintC_KeyPress);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -722,27 +711,28 @@ namespace QIntCalculator {
 #pragma endregion
 private: void AddToInput(String^ s)
 	{
-		QIntCalculator::QintC::instance->tbInput->Text += s;
+	//QIntCalculator::QintC::instance->tbInput->Paste(s);
+	instance->tbInput->Paste(s);
 	}
 private: System::Void QintC_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
 private: System::Void btnA_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("A");
+	if (btnA->Enabled == true) AddToInput("A");
 	}	
 private: System::Void btnB_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("B");
+	if (btnB->Enabled == true) AddToInput("B");
 }
 private: System::Void btnC_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("C");
+	if (btnC->Enabled == true) AddToInput("C");
 }
 private: System::Void btnD_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("D");
+	if (btnD->Enabled == true) AddToInput("D");
 }
 private: System::Void btnE_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("E");
+	if (btnE->Enabled == true) AddToInput("E");
 }
 private: System::Void btnF_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("F");
+	if (btnF->Enabled == true) AddToInput("F");
 }
 private: System::Void btn0_Click(System::Object^  sender, System::EventArgs^  e) {
 	AddToInput("0");
@@ -751,28 +741,28 @@ private: System::Void btn1_Click(System::Object^  sender, System::EventArgs^  e)
 	AddToInput("1");
 }
 private: System::Void btn2_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("2");
+	if (btn2->Enabled == true) AddToInput("2");
 }
 private: System::Void btn3_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("3");
+	if (btn3->Enabled == true) AddToInput("3");
 }
 private: System::Void btn4_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("4");
+	if (btn4->Enabled == true) AddToInput("4");
 }
 private: System::Void btn5_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("5");
+	if (btn5->Enabled == true) AddToInput("5");
 }
 private: System::Void btn6_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("6");
+	if (btn6->Enabled == true) AddToInput("6");
 }
 private: System::Void btn7_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("7");
+	if (btn7->Enabled == true) AddToInput("7");
 }
 private: System::Void btn8_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("8");
+	if (btn8->Enabled == true) AddToInput("8");
 }
 private: System::Void btn9_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("9");
+	if (btn9->Enabled == true) AddToInput("9");
 }
 private: System::Void btnAdd_Click(System::Object^  sender, System::EventArgs^  e) {
 	AddToInput("+");
@@ -787,16 +777,127 @@ private: System::Void btnDivide_Click(System::Object^  sender, System::EventArgs
 	AddToInput("/");
 }
 private: System::Void btnAnd_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("&");
+	if (btnAnd->Enabled == true) AddToInput("&");
 }
 private: System::Void btnOr_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("|");
+	if (btnOr->Enabled == true) AddToInput("|");
 }
 private: System::Void btnXor_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("^");
+	if (btnXor->Enabled == true) AddToInput("^");
 }
 private: System::Void btnNot_Click(System::Object^  sender, System::EventArgs^  e) {
-	AddToInput("~");
+	if (btnNot->Enabled == true) AddToInput("~");
+}
+private: System::Void btnClear_Click(System::Object^  sender, System::EventArgs^  e) {
+	instance->tbInput->Clear();
+	instance->tbOutput->Clear();
+}
+private: System::Void btnDel_Click(System::Object^  sender, System::EventArgs^  e) {
+	int pos = instance->tbInput->SelectionStart;
+	if (pos > 0)
+	{
+		instance->tbInput->Text = instance->tbInput->Text->Substring(0, pos - 1) + instance->tbInput->Text->Substring(pos);
+		instance->tbInput->SelectionStart = pos - 1;
+	}
+}
+private: System::Void QintC_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	switch (e->KeyChar)
+	{
+	case '0': btn0_Click(sender, e); break;
+	case '1': btn1_Click(sender, e); break;
+	case '2': btn2_Click(sender, e); break;
+	case '3': btn3_Click(sender, e); break;
+	case '4': btn4_Click(sender, e); break;
+	case '5': btn5_Click(sender, e); break;
+	case '6': btn6_Click(sender, e); break;
+	case '7': btn7_Click(sender, e); break;
+	case '8': btn8_Click(sender, e); break;
+	case '9': btn9_Click(sender, e); break;
+	case 'A': case 'a': btnA_Click(sender, e); break;
+	case 'B': case 'b': btnB_Click(sender, e); break;
+	case 'C': case 'c': btnC_Click(sender, e); break;
+	case 'D': case 'd': btnD_Click(sender, e); break;
+	case 'E': case 'e': btnE_Click(sender, e); break;
+	case 'F': case 'f': btnF_Click(sender, e); break;
+	case '+': btnAdd_Click(sender, e); break;
+	case '-': btnSubtract_Click(sender, e); break;
+	case '*': btnMultiply_Click(sender, e); break;
+	case '/': btnDivide_Click(sender, e); break;
+	case '&': btnAnd_Click(sender, e); break;
+	case '|': btnOr_Click(sender, e); break;
+	case '^': btnXor_Click(sender, e); break;
+	case '~': btnNot_Click(sender, e); break;
+	case 8: btnDel_Click(sender, e); break;	//Mã ASCII của phím backspace
+	}
+}
+private: System::Void rbHEX_CheckedChanged(Object^  sender, EventArgs^  e) {
+	btnClear_Click(sender, e);
+	btnA->Enabled = true;
+	btnB->Enabled = true;
+	btnC->Enabled = true;
+	btnD->Enabled = true;
+	btnE->Enabled = true;
+	btnF->Enabled = true;
+	btnSLeft->Enabled = false;
+	btnSRight->Enabled = false;
+	btnAnd->Enabled = false;
+	btnOr->Enabled = false;
+	btnXor->Enabled = false;
+	btnNot->Enabled = false;
+	btn2->Enabled = true;
+	btn3->Enabled = true;
+	btn4->Enabled = true;
+	btn5->Enabled = true;
+	btn6->Enabled = true;
+	btn7->Enabled = true;
+	btn8->Enabled = true;
+	btn9->Enabled = true;
+}
+private: System::Void rbDEC_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	btnClear_Click(sender, e);
+	btnA->Enabled = false;
+	btnB->Enabled = false;
+	btnC->Enabled = false;
+	btnD->Enabled = false;
+	btnE->Enabled = false;
+	btnF->Enabled = false;
+	btnSLeft->Enabled = false;
+	btnSRight->Enabled = false;
+	btnAnd->Enabled = false;
+	btnOr->Enabled = false;
+	btnXor->Enabled = false;
+	btnNot->Enabled = false;
+	btn2->Enabled = true;
+	btn3->Enabled = true;
+	btn4->Enabled = true;
+	btn5->Enabled = true;
+	btn6->Enabled = true;
+	btn7->Enabled = true;
+	btn8->Enabled = true;
+	btn9->Enabled = true;
+}
+private: System::Void rbBIN_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	btnClear_Click(sender, e);
+	btnA->Enabled = false;
+	btnB->Enabled = false;
+	btnC->Enabled = false;
+	btnD->Enabled = false;
+	btnE->Enabled = false;
+	btnF->Enabled = false;
+	btnSLeft->Enabled = true;
+	btnSRight->Enabled = true;
+	btnAnd->Enabled = true;
+	btnOr->Enabled = true;
+	btnXor->Enabled = true;
+	btnNot->Enabled = true;
+	btn2->Enabled = false;
+	btn3->Enabled = false;
+	btn4->Enabled = false;
+	btn5->Enabled = false;
+	btn6->Enabled = false;
+	btn7->Enabled = false;
+	btn8->Enabled = false;
+	btn9->Enabled = false;
 }
 };
 }
