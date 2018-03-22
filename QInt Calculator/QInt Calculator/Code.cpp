@@ -1,17 +1,56 @@
 ﻿#include"Code.h"
 
+void CreateQint(Qint &Q)
+{
+	Q.data[0] = Q.data[1] = Q.data[2] = Q.data[3] = 0;
+}
 
+//Hàm đổi Nhị Phân sang Qint
+//Input: Số nhị phân (bool *x)
+//output: Số Qint tương ứng
+Qint BinToDec(vector<bool> x)
+{
+	Qint Q;
+	CreateQint(Q);
+	int pivot = 127;
+	for (int i = x.size() - 1; i >= 0; i--)
+	{
+		if (x[i] == 1)
+		{
+			Q.data[pivot / 32] |= (1 << (31 - pivot % 32));
+		}
+		pivot--;
+	}
+	return Q;
+}
+
+void Showbit(Qint Q)
+{
+	for (int i = 0; i < 128; i++)
+	{
+
+		cout << ((Q.data[i / 32] >> 31 - (i % 32)) & 1);
+	}
+	cout << endl;
+}
+
+int GetBit(Qint a, int i)
+{
+	return (a.data[i / 32] >> (31 - (i % 32))) & 1;
+}
 
 //Hàm lấy bit từ Qint ra Mảng bool
 //Input: Số nguyên lớn(Qint Q)
 //Output: Mảng động bool nhị phân
-bool* DecToBin(Qnit Q)
+vector<bool> DecToBin(Qint Q)
 {
-	bool *a = new bool[128];
+	vector<bool> a;
 	for (int i = 0; i < 128; i++)
 	{
-		if()
+		int temp = GetBit(Q, i);
+		a.push_back(temp);
 	}
+	return a;
 }
 
 //Hàm chuyển từng kí tự từ hệ 16 sang Binary tương ứng
@@ -21,7 +60,7 @@ string Translate(char Hex)
 {
 	switch (Hex)
 	{
-	case '0': return "0000"; 
+	case '0': return "0000";
 	case '1': return "0001";
 	case '2': return "0010";
 	case '3': return "0011";
@@ -56,12 +95,12 @@ string HexToBin_Str(string H)
 //Hàm chuyển chuỗi Bit sang mảng Bool
 //Input: Chuỗi Bit (string bin)
 //Output: Mảng động bool chứa mã Bit tương ứng chuỗi (bool*)
-bool* StrBinToBin(string bin)
+vector<bool> StrBinToBin(string bin)
 {
-	bool *a = new bool[bin.length()];
+	vector<bool> a;
 	for (int i = 0; i < bin.length(); i++)
 	{
-		a[i] = bin[i] - 48;
+		a.push_back(bin[i] - 48);
 	}
 	return a;
 }
@@ -69,10 +108,9 @@ bool* StrBinToBin(string bin)
 //Hàm chuyển từ chuỗi hệ 16 sang Nhị Phân
 //Input: Chuỗi hệ 16 (String H), độ dài chuỗi H (int &len)
 //Output: Mảng bool hệ Nhị Phân
-bool* HexToBin(string H, int &len)
+vector<bool> HexToBin(string H)
 {
 	string kq = HexToBin_Str(H);
-	len = kq.length();
 	return StrBinToBin(kq);
 }
 

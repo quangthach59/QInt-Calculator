@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include<iostream>
 #include<string>
+#include<vector>
 
 using namespace std;
 
@@ -9,35 +10,26 @@ struct Qint
 	int data[4];
 };
 
+void CreateQint(Qint &Q);
+
 //Hàm đổi Nhị Phân sang Qint
 //Input: Số nhị phân (bool *x)
 //output: Số Qint tương ứng
-Qint BinToDec(bool *x)
-{
-	Qint Q;
-	for (int i = 0; i < 128; i++)
-	{
-		if (x[i] == 1)
-		{
-			Q.data[4 - len / 32 - 1] |= (1 << (32 - len % 32 - 1));
-		}
-	}
-	return Q;
-}
+Qint BinToDec(vector<bool> x);
 
-//Hàm 
-void Showbit(Qint Q)
-{
-	for (int i = 0; i < 128; i++)
-	{
+//Hàm show bit của Qint
+void Showbit(Qint Q);
 
-		cout << ((Q.data[i / 32] >> 31 - (i % 32)) & 1);
-	}
-	cout << endl;
-}
+//Hàm lấy giá trị bit ở vị trí thứ i
+int GetBit(Qint a, int i);
+
+//Hàm lấy bit từ Qint ra Mảng bool
+//Input: Số nguyên lớn(Qint Q)
+//Output: Mảng động bool nhị phân
+vector<bool> DecToBin(Qint Q);
 
 
-	
+
 
 
 //-----------------------------------------------
@@ -56,12 +48,12 @@ string HexToBin_Str(string H);
 //Hàm chuyển chuỗi Bit sang mảng Bool
 //Input: Chuỗi Bit (string bin)
 //Output: Mảng động bool chứa mã Bit tương ứng chuỗi (bool*)
-bool* StrBinToBin(string bin);
+vector<bool> StrBinToBin(string bin);
 
 //Hàm chuyển từ chuỗi hệ 16 sang Nhị Phân
-//Input: Chuỗi hệ 16 (String H), độ dài chuỗi H (int &len)
+//Input: Chuỗi hệ 16 (String H)
 //Output: Mảng bool hệ Nhị Phân
-bool* HexToBin(string H, int &len);
+vector<bool> HexToBin(string H);
 
 ////Hàm chứ từ điển chuyển Bit sang Hex
 //char BitTo1Hex(bool bit[4])
