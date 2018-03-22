@@ -1,13 +1,11 @@
 ﻿#pragma once
-
+using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Windows::Forms;
+using namespace System::Data;
+using namespace System::Drawing;
 namespace QIntCalculator {
-
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
 
 	/// <summary>
 	/// Summary for QintC
@@ -15,9 +13,11 @@ namespace QIntCalculator {
 	public ref class QintC : public System::Windows::Forms::Form
 	{
 	public:
+		static QintC^ instance;
 		QintC(void)
-		{
+		{				
 			InitializeComponent();
+			instance = this;
 			//
 			//TODO: Add the constructor code here
 			//
@@ -34,42 +34,79 @@ namespace QIntCalculator {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::TextBox^  tbInput;
-	private: System::Windows::Forms::TextBox^  textBox1;
-	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::RadioButton^  rbHEX;
-	private: System::Windows::Forms::RadioButton^  rbDEC;
-	private: System::Windows::Forms::RadioButton^  rbBIN;
-	private: System::Windows::Forms::Button^  btnImport;
-	private: System::Windows::Forms::Button^  btnA;
-	private: System::Windows::Forms::Button^  btnB;
-	private: System::Windows::Forms::Button^  btnC;
-	private: System::Windows::Forms::Button^  btnD;
-	private: System::Windows::Forms::Button^  btnE;
-	private: System::Windows::Forms::Button^  btnF;
-	private: System::Windows::Forms::Button^  btnSRight;
-	private: System::Windows::Forms::Button^  btnSLeft;
-	private: System::Windows::Forms::Button^  btnNot;
-	private: System::Windows::Forms::Button^  btnXor;
-	private: System::Windows::Forms::Button^  btnOr;
-	private: System::Windows::Forms::Button^  btnAnd;
-	private: System::Windows::Forms::Button^  btnClear;
-	private: System::Windows::Forms::Button^  btnDel;
-	private: System::Windows::Forms::Button^  btnDivide;
-	private: System::Windows::Forms::Button^  btnMultiply;
-	private: System::Windows::Forms::Button^  btnSubtract;
-	private: System::Windows::Forms::Button^  btnEqual;
-	private: System::Windows::Forms::Button^  btnAdd;
-	private: System::Windows::Forms::Button^  btn0;
-	private: System::Windows::Forms::Button^  btn9;
-	private: System::Windows::Forms::Button^  btn8;
-	private: System::Windows::Forms::Button^  btn7;
-	private: System::Windows::Forms::Button^  btn6;
-	private: System::Windows::Forms::Button^  btn5;
-	private: System::Windows::Forms::Button^  btn4;
-	private: System::Windows::Forms::Button^  btn3;
-	private: System::Windows::Forms::Button^  btn2;
-	private: System::Windows::Forms::Button^  btn1;
+	public: System::Windows::Forms::TextBox^  tbInput;
+	protected:
+	public: System::Windows::Forms::TextBox^  textBox1;
+	public: System::Windows::Forms::Label^  label1;
+	public: System::Windows::Forms::RadioButton^  rbHEX;
+	public: System::Windows::Forms::RadioButton^  rbDEC;
+	public: System::Windows::Forms::RadioButton^  rbBIN;
+	public: System::Windows::Forms::Button^  btnImport;
+	public: System::Windows::Forms::Button^  btnA;
+	public: System::Windows::Forms::Button^  btnB;
+	public: System::Windows::Forms::Button^  btnC;
+	public: System::Windows::Forms::Button^  btnD;
+	public: System::Windows::Forms::Button^  btnE;
+	public: System::Windows::Forms::Button^  btnF;
+	public: System::Windows::Forms::Button^  btnSRight;
+	public: System::Windows::Forms::Button^  btnSLeft;
+	public: System::Windows::Forms::Button^  btnNot;
+	public: System::Windows::Forms::Button^  btnXor;
+	public: System::Windows::Forms::Button^  btnOr;
+	public: System::Windows::Forms::Button^  btnAnd;
+	public: System::Windows::Forms::Button^  btnClear;
+	public: System::Windows::Forms::Button^  btnDel;
+	public: System::Windows::Forms::Button^  btnDivide;
+	public: System::Windows::Forms::Button^  btnMultiply;
+	public: System::Windows::Forms::Button^  btnSubtract;
+	public: System::Windows::Forms::Button^  btnEqual;
+	public: System::Windows::Forms::Button^  btnAdd;
+	public: System::Windows::Forms::Button^  btn0;
+	public: System::Windows::Forms::Button^  btn9;
+	public: System::Windows::Forms::Button^  btn8;
+	public: System::Windows::Forms::Button^  btn7;
+	public: System::Windows::Forms::Button^  btn6;
+	public: System::Windows::Forms::Button^  btn5;
+	public: System::Windows::Forms::Button^  btn4;
+	public: System::Windows::Forms::Button^  btn3;
+	public: System::Windows::Forms::Button^  btn2;
+	public: System::Windows::Forms::Button^  btn1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -130,12 +167,14 @@ namespace QIntCalculator {
 			// tbInput
 			// 
 			this->tbInput->AcceptsReturn = true;
+			this->tbInput->CharacterCasing = System::Windows::Forms::CharacterCasing::Upper;
 			this->tbInput->Dock = System::Windows::Forms::DockStyle::Top;
 			this->tbInput->Font = (gcnew System::Drawing::Font(L"Consolas", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->tbInput->Location = System::Drawing::Point(0, 0);
 			this->tbInput->Multiline = true;
 			this->tbInput->Name = L"tbInput";
+			this->tbInput->ReadOnly = true;
 			this->tbInput->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->tbInput->Size = System::Drawing::Size(359, 105);
 			this->tbInput->TabIndex = 0;
@@ -232,6 +271,7 @@ namespace QIntCalculator {
 			this->btnA->TabIndex = 23;
 			this->btnA->Text = L"A";
 			this->btnA->UseVisualStyleBackColor = true;
+			this->btnA->Click += gcnew System::EventHandler(this, &QintC::btnA_Click);
 			// 
 			// btnB
 			// 
@@ -245,6 +285,7 @@ namespace QIntCalculator {
 			this->btnB->TabIndex = 24;
 			this->btnB->Text = L"B";
 			this->btnB->UseVisualStyleBackColor = true;
+			this->btnB->Click += gcnew System::EventHandler(this, &QintC::btnB_Click);
 			// 
 			// btnC
 			// 
@@ -258,6 +299,7 @@ namespace QIntCalculator {
 			this->btnC->TabIndex = 25;
 			this->btnC->Text = L"C";
 			this->btnC->UseVisualStyleBackColor = true;
+			this->btnC->Click += gcnew System::EventHandler(this, &QintC::btnC_Click);
 			// 
 			// btnD
 			// 
@@ -271,6 +313,7 @@ namespace QIntCalculator {
 			this->btnD->TabIndex = 26;
 			this->btnD->Text = L"D";
 			this->btnD->UseVisualStyleBackColor = true;
+			this->btnD->Click += gcnew System::EventHandler(this, &QintC::btnD_Click);
 			// 
 			// btnE
 			// 
@@ -284,6 +327,7 @@ namespace QIntCalculator {
 			this->btnE->TabIndex = 27;
 			this->btnE->Text = L"E";
 			this->btnE->UseVisualStyleBackColor = true;
+			this->btnE->Click += gcnew System::EventHandler(this, &QintC::btnE_Click);
 			// 
 			// btnF
 			// 
@@ -297,6 +341,7 @@ namespace QIntCalculator {
 			this->btnF->TabIndex = 28;
 			this->btnF->Text = L"F";
 			this->btnF->UseVisualStyleBackColor = true;
+			this->btnF->Click += gcnew System::EventHandler(this, &QintC::btnF_Click);
 			// 
 			// btnSRight
 			// 
@@ -336,6 +381,7 @@ namespace QIntCalculator {
 			this->btnNot->TabIndex = 50;
 			this->btnNot->Text = L"~";
 			this->btnNot->UseVisualStyleBackColor = true;
+			this->btnNot->Click += gcnew System::EventHandler(this, &QintC::btnNot_Click);
 			// 
 			// btnXor
 			// 
@@ -349,6 +395,7 @@ namespace QIntCalculator {
 			this->btnXor->TabIndex = 49;
 			this->btnXor->Text = L"^";
 			this->btnXor->UseVisualStyleBackColor = true;
+			this->btnXor->Click += gcnew System::EventHandler(this, &QintC::btnXor_Click);
 			// 
 			// btnOr
 			// 
@@ -362,6 +409,7 @@ namespace QIntCalculator {
 			this->btnOr->TabIndex = 48;
 			this->btnOr->Text = L"|";
 			this->btnOr->UseVisualStyleBackColor = true;
+			this->btnOr->Click += gcnew System::EventHandler(this, &QintC::btnOr_Click);
 			// 
 			// btnAnd
 			// 
@@ -375,6 +423,7 @@ namespace QIntCalculator {
 			this->btnAnd->TabIndex = 47;
 			this->btnAnd->Text = L"&&";
 			this->btnAnd->UseVisualStyleBackColor = true;
+			this->btnAnd->Click += gcnew System::EventHandler(this, &QintC::btnAnd_Click);
 			// 
 			// btnClear
 			// 
@@ -416,6 +465,7 @@ namespace QIntCalculator {
 			this->btnDivide->TabIndex = 43;
 			this->btnDivide->Text = L"/";
 			this->btnDivide->UseVisualStyleBackColor = true;
+			this->btnDivide->Click += gcnew System::EventHandler(this, &QintC::btnDivide_Click);
 			// 
 			// btnMultiply
 			// 
@@ -429,6 +479,7 @@ namespace QIntCalculator {
 			this->btnMultiply->TabIndex = 42;
 			this->btnMultiply->Text = L"*";
 			this->btnMultiply->UseVisualStyleBackColor = true;
+			this->btnMultiply->Click += gcnew System::EventHandler(this, &QintC::btnMultiply_Click);
 			// 
 			// btnSubtract
 			// 
@@ -442,6 +493,7 @@ namespace QIntCalculator {
 			this->btnSubtract->TabIndex = 41;
 			this->btnSubtract->Text = L"-";
 			this->btnSubtract->UseVisualStyleBackColor = true;
+			this->btnSubtract->Click += gcnew System::EventHandler(this, &QintC::btnSubtract_Click);
 			// 
 			// btnEqual
 			// 
@@ -469,6 +521,7 @@ namespace QIntCalculator {
 			this->btnAdd->TabIndex = 40;
 			this->btnAdd->Text = L"+";
 			this->btnAdd->UseVisualStyleBackColor = true;
+			this->btnAdd->Click += gcnew System::EventHandler(this, &QintC::btnAdd_Click);
 			// 
 			// btn0
 			// 
@@ -482,6 +535,7 @@ namespace QIntCalculator {
 			this->btn0->TabIndex = 31;
 			this->btn0->Text = L"0";
 			this->btn0->UseVisualStyleBackColor = true;
+			this->btn0->Click += gcnew System::EventHandler(this, &QintC::btn0_Click);
 			// 
 			// btn9
 			// 
@@ -495,6 +549,7 @@ namespace QIntCalculator {
 			this->btn9->TabIndex = 39;
 			this->btn9->Text = L"9";
 			this->btn9->UseVisualStyleBackColor = true;
+			this->btn9->Click += gcnew System::EventHandler(this, &QintC::btn9_Click);
 			// 
 			// btn8
 			// 
@@ -508,6 +563,7 @@ namespace QIntCalculator {
 			this->btn8->TabIndex = 38;
 			this->btn8->Text = L"8";
 			this->btn8->UseVisualStyleBackColor = true;
+			this->btn8->Click += gcnew System::EventHandler(this, &QintC::btn8_Click);
 			// 
 			// btn7
 			// 
@@ -521,6 +577,7 @@ namespace QIntCalculator {
 			this->btn7->TabIndex = 37;
 			this->btn7->Text = L"7";
 			this->btn7->UseVisualStyleBackColor = true;
+			this->btn7->Click += gcnew System::EventHandler(this, &QintC::btn7_Click);
 			// 
 			// btn6
 			// 
@@ -534,6 +591,7 @@ namespace QIntCalculator {
 			this->btn6->TabIndex = 36;
 			this->btn6->Text = L"6";
 			this->btn6->UseVisualStyleBackColor = true;
+			this->btn6->Click += gcnew System::EventHandler(this, &QintC::btn6_Click);
 			// 
 			// btn5
 			// 
@@ -547,6 +605,7 @@ namespace QIntCalculator {
 			this->btn5->TabIndex = 35;
 			this->btn5->Text = L"5";
 			this->btn5->UseVisualStyleBackColor = true;
+			this->btn5->Click += gcnew System::EventHandler(this, &QintC::btn5_Click);
 			// 
 			// btn4
 			// 
@@ -560,6 +619,7 @@ namespace QIntCalculator {
 			this->btn4->TabIndex = 34;
 			this->btn4->Text = L"4";
 			this->btn4->UseVisualStyleBackColor = true;
+			this->btn4->Click += gcnew System::EventHandler(this, &QintC::btn4_Click);
 			// 
 			// btn3
 			// 
@@ -573,6 +633,7 @@ namespace QIntCalculator {
 			this->btn3->TabIndex = 33;
 			this->btn3->Text = L"3";
 			this->btn3->UseVisualStyleBackColor = true;
+			this->btn3->Click += gcnew System::EventHandler(this, &QintC::btn3_Click);
 			// 
 			// btn2
 			// 
@@ -586,6 +647,7 @@ namespace QIntCalculator {
 			this->btn2->TabIndex = 32;
 			this->btn2->Text = L"2";
 			this->btn2->UseVisualStyleBackColor = true;
+			this->btn2->Click += gcnew System::EventHandler(this, &QintC::btn2_Click);
 			// 
 			// btn1
 			// 
@@ -599,6 +661,7 @@ namespace QIntCalculator {
 			this->btn1->TabIndex = 30;
 			this->btn1->Text = L"1";
 			this->btn1->UseVisualStyleBackColor = true;
+			this->btn1->Click += gcnew System::EventHandler(this, &QintC::btn1_Click);
 			// 
 			// QintC
 			// 
@@ -657,7 +720,83 @@ namespace QIntCalculator {
 
 		}
 #pragma endregion
-	private: System::Void QintC_Load(System::Object^  sender, System::EventArgs^  e) {
+private: void AddToInput(String^ s)
+	{
+		QIntCalculator::QintC::instance->tbInput->Text += s;
 	}
-	};
+private: System::Void QintC_Load(System::Object^  sender, System::EventArgs^  e) {
+	}
+private: System::Void btnA_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("A");
+	}	
+private: System::Void btnB_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("B");
+}
+private: System::Void btnC_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("C");
+}
+private: System::Void btnD_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("D");
+}
+private: System::Void btnE_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("E");
+}
+private: System::Void btnF_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("F");
+}
+private: System::Void btn0_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("0");
+}
+private: System::Void btn1_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("1");
+}
+private: System::Void btn2_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("2");
+}
+private: System::Void btn3_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("3");
+}
+private: System::Void btn4_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("4");
+}
+private: System::Void btn5_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("5");
+}
+private: System::Void btn6_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("6");
+}
+private: System::Void btn7_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("7");
+}
+private: System::Void btn8_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("8");
+}
+private: System::Void btn9_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("9");
+}
+private: System::Void btnAdd_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("+");
+}
+private: System::Void btnSubtract_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("-");
+}
+private: System::Void btnMultiply_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("*");
+}
+private: System::Void btnDivide_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("/");
+}
+private: System::Void btnAnd_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("&");
+}
+private: System::Void btnOr_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("|");
+}
+private: System::Void btnXor_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("^");
+}
+private: System::Void btnNot_Click(System::Object^  sender, System::EventArgs^  e) {
+	AddToInput("~");
+}
+};
 }
