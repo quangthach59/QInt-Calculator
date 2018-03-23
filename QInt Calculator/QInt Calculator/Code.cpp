@@ -1,4 +1,21 @@
 ﻿#include"Code.h"
+//Chuyển đổi chuỗi kiểu System::String sang string C++
+string Str_to_str(String^ s)
+{
+	string os;
+	using namespace Runtime::InteropServices;
+	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+	os = chars;
+	return os;
+}
+
+//Chuyển đổi chuỗi kiểu string C++ sang System::String
+String^ str_to_Str(string s)
+{
+	String^ os = gcnew String(s.c_str());
+	return os;
+}
+
 
 void CreateQint(Qint &Q)
 {
@@ -28,8 +45,7 @@ void Showbit(Qint Q)
 {
 	for (int i = 0; i < 128; i++)
 	{
-
-		cout << ((Q.data[i / 32] >> 31 - (i % 32)) & 1);
+		cout << (((Q.data[i / 32] >> 31) - (i % 32)) & 1);
 	}
 	cout << endl;
 }
@@ -77,6 +93,7 @@ string Translate(char Hex)
 	case 'E': return "1110";
 	case 'F': return "1111";
 	}
+	return "error!";
 }
 
 //Hàm chuyển hệ 16 sang Hệ 2 (dạng chuỗi)
@@ -98,7 +115,7 @@ string HexToBin_Str(string H)
 vector<bool> StrBinToBin(string bin)
 {
 	vector<bool> a;
-	for (int i = 0; i < bin.length(); i++)
+	for (int i = 0; i < (int)bin.length(); i++)
 	{
 		a.push_back(bin[i] - 48);
 	}
@@ -120,7 +137,7 @@ vector<bool> HexToBin(string H)
 int IntDiv2(string &Dec)
 {
 	int nho = 0;
-	for (int i = 0; i < Dec.length(); i++)
+	for (int i = 0; i < (int)Dec.length(); i++)
 	{
 		char t = Dec[i];
 		Dec[i] = (Dec[i] - 48 + nho * 10) / 2 + 48;
@@ -147,7 +164,7 @@ vector<bool> DecToBin(string Dec)
 		R = IntDiv2(Dec);
 		tmp.push_back(R);
 	}
-	for (int i = 0; i < tmp.size(); i++)
+	for (int i = 0; i < (int)tmp.size(); i++)
 	{
 		Result.push_back(tmp[tmp.size() - i - 1]);
 	}

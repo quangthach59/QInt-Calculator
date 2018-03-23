@@ -1,5 +1,4 @@
-﻿#pragma once
-using namespace System;
+﻿using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
 using namespace System::Windows::Forms;
@@ -7,6 +6,7 @@ using namespace System::Data;
 using namespace System::Drawing;
 using namespace std;
 #include <string>
+#include "Code.h"
 namespace QIntCalculator {
 	using namespace QIntCalculator;
 	/// <summary>
@@ -20,10 +20,43 @@ namespace QIntCalculator {
 		{				
 			InitializeComponent();
 			instance = this;
-			//
-			//TODO: Add the constructor code here
-			//
-		}
+		};
+		System::Windows::Forms::TextBox^  tbInput;
+		System::Windows::Forms::TextBox^  tbOutput;
+		System::Windows::Forms::Label^  label1;
+		System::Windows::Forms::RadioButton^  rbHEX;
+		System::Windows::Forms::RadioButton^  rbDEC;
+		System::Windows::Forms::RadioButton^  rbBIN;
+		System::Windows::Forms::Button^  btnImport;
+		System::Windows::Forms::Button^  btnA;
+		System::Windows::Forms::Button^  btnB;
+		System::Windows::Forms::Button^  btnC;
+		System::Windows::Forms::Button^  btnD;
+		System::Windows::Forms::Button^  btnE;
+		System::Windows::Forms::Button^  btnF;
+		System::Windows::Forms::Button^  btnSRight;
+		System::Windows::Forms::Button^  btnSLeft;
+		System::Windows::Forms::Button^  btnNot;
+		System::Windows::Forms::Button^  btnXor;
+		System::Windows::Forms::Button^  btnOr;
+		System::Windows::Forms::Button^  btnAnd;
+		System::Windows::Forms::Button^  btnClear;
+		System::Windows::Forms::Button^  btnDel;
+		System::Windows::Forms::Button^  btnDivide;
+		System::Windows::Forms::Button^  btnMultiply;
+		System::Windows::Forms::Button^  btnSubtract;
+		System::Windows::Forms::Button^  btnEqual;
+		System::Windows::Forms::Button^  btnAdd;
+		System::Windows::Forms::Button^  btn0;
+		System::Windows::Forms::Button^  btn9;
+		System::Windows::Forms::Button^  btn8;
+		System::Windows::Forms::Button^  btn7;
+		System::Windows::Forms::Button^  btn6;
+		System::Windows::Forms::Button^  btn5;
+		System::Windows::Forms::Button^  btn4;
+		System::Windows::Forms::Button^  btn3;
+		System::Windows::Forms::Button^  btn2;
+		System::Windows::Forms::Button^  btn1;
 
 	protected:
 		/// <summary>
@@ -35,47 +68,8 @@ namespace QIntCalculator {
 			{
 				delete components;
 			}
-		}
-	public: System::Windows::Forms::TextBox^  tbInput;
-	public: System::Windows::Forms::TextBox^  tbOutput;
-	protected:
-
-	public: System::Windows::Forms::Label^  label1;
-	public: System::Windows::Forms::RadioButton^  rbHEX;
-	public: System::Windows::Forms::RadioButton^  rbDEC;
-	public: System::Windows::Forms::RadioButton^  rbBIN;
-	public: System::Windows::Forms::Button^  btnImport;
-	public: System::Windows::Forms::Button^  btnA;
-	public: System::Windows::Forms::Button^  btnB;
-	public: System::Windows::Forms::Button^  btnC;
-	public: System::Windows::Forms::Button^  btnD;
-	public: System::Windows::Forms::Button^  btnE;
-	public: System::Windows::Forms::Button^  btnF;
-	public: System::Windows::Forms::Button^  btnSRight;
-	public: System::Windows::Forms::Button^  btnSLeft;
-	public: System::Windows::Forms::Button^  btnNot;
-	public: System::Windows::Forms::Button^  btnXor;
-	public: System::Windows::Forms::Button^  btnOr;
-	public: System::Windows::Forms::Button^  btnAnd;
-	public: System::Windows::Forms::Button^  btnClear;
-	public: System::Windows::Forms::Button^  btnDel;
-	public: System::Windows::Forms::Button^  btnDivide;
-	public: System::Windows::Forms::Button^  btnMultiply;
-	public: System::Windows::Forms::Button^  btnSubtract;
-	public: System::Windows::Forms::Button^  btnEqual;
-	public: System::Windows::Forms::Button^  btnAdd;
-	public: System::Windows::Forms::Button^  btn0;
-	public: System::Windows::Forms::Button^  btn9;
-	public: System::Windows::Forms::Button^  btn8;
-	public: System::Windows::Forms::Button^  btn7;
-	public: System::Windows::Forms::Button^  btn6;
-	public: System::Windows::Forms::Button^  btn5;
-	public: System::Windows::Forms::Button^  btn4;
-	public: System::Windows::Forms::Button^  btn3;
-	public: System::Windows::Forms::Button^  btn2;
-	public: System::Windows::Forms::Button^  btn1;
-
-	protected:
+		};
+	
 
 	private:
 		/// <summary>
@@ -233,6 +227,7 @@ namespace QIntCalculator {
 			this->btnImport->TabIndex = 6;
 			this->btnImport->Text = L"Import";
 			this->btnImport->UseVisualStyleBackColor = true;
+			this->btnImport->Click += gcnew System::EventHandler(this, &QintC::btnImport_Click);
 			// 
 			// btnA
 			// 
@@ -712,117 +707,40 @@ namespace QIntCalculator {
 
 		}
 #pragma endregion
-void MarshalString(String ^ s, string& os)
-{
-	using namespace Runtime::InteropServices;
-	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
-	os = chars;
-	Marshal::FreeHGlobal(IntPtr((void*)chars));
-}
-string Str_to_str(String^ s)
-{
-	string os;
-	using namespace Runtime::InteropServices;
-	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
-	os = chars;
-	return os;
-}
-String^ str_to_Str(string s)
-{
-	String^ os = gcnew String(s.c_str());
-	return os;
-}
-private: void AddToInput(String^ s)
-	{
-	//QIntCalculator::QintC::instance->tbInput->Paste(s);
+
+private: void AddToInput(String^ s) {
 	instance->tbInput->Paste(s);
-	}
-private: System::Void QintC_Load(Object^  sender, EventArgs^  e) {
-	}
-private: System::Void btnA_Click(Object^  sender, EventArgs^  e) {
-	if (btnA->Enabled == true) AddToInput("A");
-	}	
-private: System::Void btnB_Click(Object^  sender, EventArgs^  e) {
-	if (btnB->Enabled == true) AddToInput("B");
-}
-private: System::Void btnC_Click(Object^  sender, EventArgs^  e) {
-	if (btnC->Enabled == true) AddToInput("C");
-}
-private: System::Void btnD_Click(Object^  sender, EventArgs^  e) {
-	if (btnD->Enabled == true) AddToInput("D");
-}
-private: System::Void btnE_Click(Object^  sender, EventArgs^  e) {
-	if (btnE->Enabled == true) AddToInput("E");
-}
-private: System::Void btnF_Click(Object^  sender, EventArgs^  e) {
-	if (btnF->Enabled == true) AddToInput("F");
-}
-private: System::Void btn0_Click(Object^  sender, EventArgs^  e) {
-	AddToInput("0");
-}
-private: System::Void btn1_Click(Object^  sender, EventArgs^  e) {
-	AddToInput("1");
-}
-private: System::Void btn2_Click(Object^  sender, EventArgs^  e) {
-	if (btn2->Enabled == true) AddToInput("2");
-}
-private: System::Void btn3_Click(Object^  sender, EventArgs^  e) {
-	if (btn3->Enabled == true) AddToInput("3");
-}
-private: System::Void btn4_Click(Object^  sender, EventArgs^  e) {
-	if (btn4->Enabled == true) AddToInput("4");
-}
-private: System::Void btn5_Click(Object^  sender, EventArgs^  e) {
-	if (btn5->Enabled == true) AddToInput("5");
-}
-private: System::Void btn6_Click(Object^  sender, EventArgs^  e) {
-	if (btn6->Enabled == true) AddToInput("6");
-}
-private: System::Void btn7_Click(Object^  sender, EventArgs^  e) {
-	if (btn7->Enabled == true) AddToInput("7");
-}
-private: System::Void btn8_Click(Object^  sender, EventArgs^  e) {
-	if (btn8->Enabled == true) AddToInput("8");
-}
-private: System::Void btn9_Click(Object^  sender, EventArgs^  e) {
-	if (btn9->Enabled == true) AddToInput("9");
-}
-private: System::Void btnAdd_Click(Object^  sender, EventArgs^  e) {
-	AddToInput("+");
-}
-private: System::Void btnSubtract_Click(Object^  sender, EventArgs^  e) {
-	AddToInput("-");
-}
-private: System::Void btnMultiply_Click(Object^  sender, EventArgs^  e) {
-	AddToInput("*");
-}
-private: System::Void btnDivide_Click(Object^  sender, EventArgs^  e) {
-	AddToInput("/");
-}
-private: System::Void btnAnd_Click(Object^  sender, EventArgs^  e) {
-	if (btnAnd->Enabled == true) AddToInput("&");
-}
-private: System::Void btnOr_Click(Object^  sender, EventArgs^  e) {
-	if (btnOr->Enabled == true) AddToInput("|");
-}
-private: System::Void btnXor_Click(Object^  sender, EventArgs^  e) {
-	if (btnXor->Enabled == true) AddToInput("^");
-}
-private: System::Void btnNot_Click(Object^  sender, EventArgs^  e) {
-	if (btnNot->Enabled == true) AddToInput("~");
-}
-private: System::Void btnClear_Click(Object^  sender, EventArgs^  e) {
-	instance->tbInput->Clear();
-	instance->tbOutput->Clear();
-}
-private: System::Void btnDel_Click(Object^  sender, EventArgs^  e) {
-	int pos = instance->tbInput->SelectionStart;
-	if (pos > 0)
-	{
-		instance->tbInput->Text = instance->tbInput->Text->Substring(0, pos - 1) + instance->tbInput->Text->Substring(pos);
-		instance->tbInput->SelectionStart = pos - 1;
-	}
-}
+};
+private: System::Void QintC_Load(Object^  sender, EventArgs^  e);
+private: System::Void btnA_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnB_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnC_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnD_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnE_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnF_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn0_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn1_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn2_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn3_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn4_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn5_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn6_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn7_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn8_Click(Object^  sender, EventArgs^  e);
+private: System::Void btn9_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnAdd_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnSubtract_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnMultiply_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnDivide_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnAnd_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnOr_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnXor_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnNot_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnClear_Click(Object^  sender, EventArgs^  e);
+private: System::Void btnDel_Click(Object^  sender, EventArgs^  e);
+private: System::Void rbHEX_CheckedChanged(Object^  sender, EventArgs^  e);
+private: System::Void rbDEC_CheckedChanged(Object^  sender, EventArgs^  e);
+private: System::Void rbBIN_CheckedChanged(Object^  sender, EventArgs^  e);
 private: System::Void QintC_KeyPress(Object^  sender, KeyPressEventArgs^  e) {
 	switch (e->KeyChar)
 	{
@@ -853,76 +771,8 @@ private: System::Void QintC_KeyPress(Object^  sender, KeyPressEventArgs^  e) {
 	case 8: btnDel_Click(sender, e); break;	//Mã ASCII của phím backspace
 	case 13: btnEqual_Click(sender, e); break; //Nhấn enter hoặc dấu =, xem như kết thúc phép tính
 	}
-}
-private: System::Void rbHEX_CheckedChanged(Object^  sender, EventArgs^  e) {
-	btnClear_Click(sender, e);
-	btnA->Enabled = true;
-	btnB->Enabled = true;
-	btnC->Enabled = true;
-	btnD->Enabled = true;
-	btnE->Enabled = true;
-	btnF->Enabled = true;
-	btnSLeft->Enabled = false;
-	btnSRight->Enabled = false;
-	btnAnd->Enabled = false;
-	btnOr->Enabled = false;
-	btnXor->Enabled = false;
-	btnNot->Enabled = false;
-	btn2->Enabled = true;
-	btn3->Enabled = true;
-	btn4->Enabled = true;
-	btn5->Enabled = true;
-	btn6->Enabled = true;
-	btn7->Enabled = true;
-	btn8->Enabled = true;
-	btn9->Enabled = true;
-}
-private: System::Void rbDEC_CheckedChanged(Object^  sender, EventArgs^  e) {
-	btnClear_Click(sender, e);
-	btnA->Enabled = false;
-	btnB->Enabled = false;
-	btnC->Enabled = false;
-	btnD->Enabled = false;
-	btnE->Enabled = false;
-	btnF->Enabled = false;
-	btnSLeft->Enabled = false;
-	btnSRight->Enabled = false;
-	btnAnd->Enabled = false;
-	btnOr->Enabled = false;
-	btnXor->Enabled = false;
-	btnNot->Enabled = false;
-	btn2->Enabled = true;
-	btn3->Enabled = true;
-	btn4->Enabled = true;
-	btn5->Enabled = true;
-	btn6->Enabled = true;
-	btn7->Enabled = true;
-	btn8->Enabled = true;
-	btn9->Enabled = true;
-}
-private: System::Void rbBIN_CheckedChanged(Object^  sender, EventArgs^  e) {
-	btnClear_Click(sender, e);
-	btnA->Enabled = false;
-	btnB->Enabled = false;
-	btnC->Enabled = false;
-	btnD->Enabled = false;
-	btnE->Enabled = false;
-	btnF->Enabled = false;
-	btnSLeft->Enabled = true;
-	btnSRight->Enabled = true;
-	btnAnd->Enabled = true;
-	btnOr->Enabled = true;
-	btnXor->Enabled = true;
-	btnNot->Enabled = true;
-	btn2->Enabled = false;
-	btn3->Enabled = false;
-	btn4->Enabled = false;
-	btn5->Enabled = false;
-	btn6->Enabled = false;
-	btn7->Enabled = false;
-	btn8->Enabled = false;
-	btn9->Enabled = false;
-}
+};
+
 private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
 	string a = Str_to_str(tbInput->Text);
 	int n = a.find_first_not_of("0123456789ABCDEF");
@@ -932,13 +782,14 @@ private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
 		p2 = a[n];
 		p1 = a.substr(0, n);
 		p3 = a.substr(n + 1, a.length()-1);
-		String^ rs = str_to_Str("First object: " + p1 + ", operator: " + p2 + ", second object " + p3);
-		MessageBox::Show(rs);
+		//tbOutput->Text = rs;
+		tbOutput->Text = str_to_Str(HexToBin_Str(p1));
 	}
 	else
-	{
 		MessageBox::Show("Invalid calculation!");
-	}
+	
+}
+private: System::Void btnImport_Click(System::Object^  sender, System::EventArgs^  e) {
 }
 };
 }

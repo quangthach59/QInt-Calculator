@@ -2,8 +2,14 @@
 #include<iostream>
 #include<string>
 #include<vector>
-
 using namespace std;
+using namespace System;
+//Chuyển đổi chuỗi kiểu System::String sang string C++
+string Str_to_str(String^ s);
+
+//Chuyển đổi chuỗi kiểu string C++ sang System::String
+String^ str_to_Str(string s);
+
 
 struct Qint
 {
