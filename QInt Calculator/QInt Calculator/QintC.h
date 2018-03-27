@@ -778,12 +778,23 @@ private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
 	int n = a.find_first_not_of("0123456789ABCDEF");
 	if (n > 0)
 	{
-		string p1, p2, p3;
-		p2 = a[n];
+		string p1, p3;
+		char p2 = a[n];
 		p1 = a.substr(0, n);
 		p3 = a.substr(n + 1, a.length()-1);
 		//tbOutput->Text = rs;
-		tbOutput->Text = str_to_Str(HexToBin_Str(p1));
+		switch (p2)
+		{
+		case '+': break;
+		case '-': break;
+		case '*': break;
+		case '/': break;
+		case '&': break;
+		case '|': break;
+		case '^': break;
+		case '~': break;
+		case '<<': break;
+		}
 	}
 	else
 		MessageBox::Show("Invalid calculation!");
