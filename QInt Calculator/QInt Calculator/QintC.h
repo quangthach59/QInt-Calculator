@@ -8,8 +8,7 @@ using namespace std;
 #include <iostream>
 #include <string>
 #include <vector>
-#include <string>
-#include "Qint.h"
+//#include "Qint.h"
 namespace QIntCalculator {
 	using namespace QIntCalculator;
 	/// <summary>
@@ -17,7 +16,7 @@ namespace QIntCalculator {
 	/// </summary>
 	public ref class QintC : public Form
 	{
-	public:
+	public:		
 		static QintC^ instance;
 		QintC(void)
 		{
@@ -714,8 +713,8 @@ namespace QIntCalculator {
 	private: void AddToInput(String^ s) {
 		instance->tbInput->Paste(s);
 	};
-	string Str_to_str(String^ s);
-	String^ str_to_Str(string s);
+			 string Str_to_str(String^ s);
+			 String^ str_to_Str(string s);
 	private: System::Void QintC_Load(Object^  sender, EventArgs^  e);
 	private: System::Void btnA_Click(Object^  sender, EventArgs^  e);
 	private: System::Void btnB_Click(Object^  sender, EventArgs^  e);
@@ -778,35 +777,13 @@ namespace QIntCalculator {
 		}
 	};
 
-			 
+
 	private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
-		//string a = Str_to_str(tbInput->Text);
-		//int n = a.find_first_not_of("0123456789ABCDEF");
-		//if (n > 0)
-		//{
-		//	string p1, p3;
-		//	char p2 = a[n];
-		//	p1 = a.substr(0, n);
-		//	p3 = a.substr(n + 1, a.length()-1);
-		//	//tbOutput->Text = rs;
-		//	switch (p2)
-		//	{
-		//	case '+': break;
-		//	case '-': break;
-		//	case '*': break;
-		//	case '/': break;
-		//	case '&': break;
-		//	case '|': break;
-		//	case '^': break;
-		//	case '~': break;
-		//	case '<<': break;
-		//	}
-		//}
-		//else
-		//	MessageBox::Show("Invalid calculation!");
-		//vector<bool> a = HexToBin(Str_to_str(tbInput->Text));
-		//string x = BinToHex(a);
-		//tbOutput->Text = str_to_Str(x);		
+		
+		int n = Qint::GetNumeralSystemInput();
+		MessageBox::Show(n.ToString());
+		
+		
 	}
 	private: System::Void btnImport_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
