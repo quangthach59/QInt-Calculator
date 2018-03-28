@@ -804,12 +804,12 @@ namespace QIntCalculator {
 		//}
 		//else
 		//	MessageBox::Show("Invalid calculation!");
-		vector<bool> a = HexToBin(Str_to_str(tbInput->Text));
-		string x = BinToHex(a);
-		tbOutput->Text = str_to_Str(x);
-		
+		//vector<bool> a = HexToBin(Str_to_str(tbInput->Text));
+		//string x = BinToHex(a);
+		//tbOutput->Text = str_to_Str(x);		
 	}
 	private: System::Void btnImport_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 	};
+
 }

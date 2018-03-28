@@ -2,15 +2,16 @@
 
 Qint::Qint()
 {
+	data[0] = data[1] = data[2] = data[3] = 0;
 }
 
 Qint::~Qint()
 {
 }
-void CreateQint(Qint &Q)
-{
-	Q.data[0] = Q.data[1] = Q.data[2] = Q.data[3] = 0;
-}
+//void CreateQint(Qint &Q)
+//{
+//	Q.data[0] = Q.data[1] = Q.data[2] = Q.data[3] = 0;
+//}
 
 //Hàm đổi Nhị Phân sang Qint
 //Input: Số nhị phân (bool *x)
@@ -18,7 +19,7 @@ void CreateQint(Qint &Q)
 Qint BinToDec(vector<bool> x)
 {
 	Qint Q;
-	CreateQint(Q);
+	//CreateQint(Q);
 	int pivot = 127;
 	for (int i = x.size() - 1; i >= 0; i--)
 	{
@@ -35,7 +36,6 @@ void PrintQInt(Qint Q)
 {
 	for (int i = 0; i < 128; i++)
 	{
-
 		cout << (((Q.data[i / 32] >> 31) - (i % 32)) & 1);
 	}
 	cout << endl;
@@ -352,6 +352,173 @@ string BinToHex(vector<bool> Bin)
 }
 
 
+vector<string> GetStringInput(string s)
+{
+	vector<string> str;
+	//Tìm kí tự là operator
+	int n = s.find_first_not_of("0123456789ABCDEF");
+	//Operator ở vị trí hợp lệ
+	if (n > 0)
+	{
+		string p1, p2, p3;
+		p1 = s.substr(0, n);
+		char p = s[n];
+		//Operator dịch bit có độ dài là 2, các operator còn lại chỉ có độ dài 1
+		if (p == '<' || p == '>')
+		{
+			p3 = s.substr(n + 2, s.length() - 1);
+			p2 = p + p;
+		}
+		else
+		{
+			p3 = s.substr(n + 1, s.length() - 1);
+			p2 = p;
+		}
+		str.push_back(p1);
+		str.push_back(p2);
+		str.push_back(p3);
+	}
+	//Không có operator, là phép đổi cơ số
+	else
+	{
+		str.push_back(s);
+	}
+	return str;
+}
+int GetNumeralSystemInput()
+{
+	
+	return 1;
+
+}
+static void EquationProcess(vector<string> s)
+{
+	//có thực hiện với toán tử
+	if (s.size() == 3)
+	{
+
+	}
+	//đổi hệ đơn giản vì máy tính không cho nhập khoảng trắng
+	else if (s.size() == 1)
+	{
+
+	}
 
 
+}
 
+
+//Cộng 2 số nhị phân
+vector<bool> addBIN(vector<bool> a, vector<bool> b) {
+	vector<bool> kq(128);
+	int nho_Tam = 0;
+
+	//thực hiện phép cộng đến phần tử thứ  n-1
+	for (int i = a.size() - 1; i > 0; i--) {
+		if (a[i] + b[i] + nho_Tam == 0) {
+			kq[i] = 0;
+			nho_Tam = 0;
+		}
+		else if (a[i] + b[i] + nho_Tam == 1) {
+			kq[i] = 1;
+			nho_Tam = 0;
+		}
+		else if (a[i] + b[i] + nho_Tam == 2) {
+			kq[i] = 0;
+			nho_Tam = 1;
+		}
+		else if (a[i] + b[i] + nho_Tam > 2) {
+			kq[i] = 1;
+			nho_Tam = 1;
+		}
+	}
+	// thực hiện phép cộng ở phần tử thứ n (phần tử cuối cùng)
+	if (a[0] + b[0] + nho_Tam == 0) {
+		kq[0] = 0;
+	}
+	else if (a[0] + b[0] + nho_Tam == 1) {
+		kq[0] = 1;
+	}
+	else if (a[0] + b[0] + nho_Tam == 2) {
+		kq[0] = 0;
+	}
+	else if (a[0] + b[0] + nho_Tam > 2) {
+		kq[0] = 1;
+	}
+	return kq;
+}
+
+//Trừ 2 số nhị phân 
+vector<bool> subtractBIN(vector<bool> a, vector<bool> b) {
+	vector<bool> kq(128);
+	int nho_Tam = 0;
+	vector <bool> bu_1 = notBIN(b); //Lấy bù 1 của b
+	vector <bool> one; //tạo bit 1
+	for (int i = 0; i < 127; i++) {
+		one.push_back(0);
+	}
+	one.push_back(1);
+	vector <bool> bu_2 = addBIN(bu_1, one); //Lấy bù 2 của b
+	kq = addBIN(a, bu_2); //a + bù 2 của b
+	return kq;
+}
+
+// Phép AND nhị phân
+vector<bool> andBIN(vector<bool> a, vector<bool> b) {
+	vector<bool> kq(128);
+
+	for (int i = a.size() - 1; i > -1; i--) {
+		if (a[i] * b[i] == 1) {
+			kq[i] = 1;
+		}
+		else {
+			kq[i] = 0;
+		}
+	}
+	return kq;
+}
+
+//Phép OR nhị phân
+vector<bool> orBIN(vector<bool> a, vector<bool> b) {
+	vector<bool> kq(128);
+
+	for (int i = a.size() - 1; i > -1; i--) {
+		if (a[i] + b[i] == 0) {
+			kq[i] = 0;
+		}
+		else {
+			kq[i] = 0;
+		}
+	}
+	return kq;
+}
+
+//Phép XOR nhị phân
+vector<bool> xorBIN(vector<bool> a, vector<bool> b) {
+	vector<bool> kq(128);
+
+	for (int i = a.size() - 1; i > -1; i--) {
+		if (a[i] = b[i]) {
+			kq[i] = 0;
+		}
+		else {
+			kq[i] = 1;
+		}
+	}
+	return kq;
+}
+
+//Phép NOT nhị phân
+vector<bool> notBIN(vector<bool> a) {
+	vector<bool> kq(128);
+
+	for (int i = a.size() - 1; i > -1; i--) {
+		if (a[i] == 1) {
+			kq[i] = 0;
+		}
+		else {
+			kq[i] = 1;
+		}
+	}
+	return kq;
+}

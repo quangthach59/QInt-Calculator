@@ -2,30 +2,26 @@
 #include<iostream>
 #include<string>
 #include<vector>
-
 using namespace std;
-class Qint;
+using namespace System;
+using namespace System::Windows::Forms;
+class Qint
+{
+	
+private:
+
+public:
+	int data[4];
+	Qint();
+	~Qint();
+
+};
 //Chuyển từ 2 qua 10
 //Input: Chuỗi nhị phân
 //Output: Chuỗi thập phân
 string BinToDecStr(vector<bool> Bin);
 vector<bool> DecToBin(Qint x);
-
-class Qint
-{
-public:
-	Qint();
-	~Qint();
-	int data[4];
-	//--------------------
-	void ShowQInt()
-	{
-		vector<bool> a = DecToBin(*this);
-		cout << BinToDecStr(a);
-	}
-};
-
-void CreateQint(Qint &Q);
+//void CreateQint(Qint &Q);
 
 //Hàm đổi Nhị Phân sang Qint
 //Input: Số nhị phân (bool *x)
@@ -92,3 +88,19 @@ vector<bool> StrDecToBin(string Dec);
 //Hàm nhập số Qint
 void ScanQInt(Qint &x);
 
+vector<string> GetStringInput(string s);
+int GetNumeralSystemInput();
+static void EquationProcess(vector <string> s);
+
+//Cộng 2 số nhị phân
+vector<bool> addBIN(vector<bool> a, vector<bool> b);
+//Trừ 2 số nhị phân 
+vector<bool> subtractBIN(vector<bool> a, vector<bool> b);
+// Phép AND nhị phân
+vector<bool> andBIN(vector<bool> a, vector<bool> b);
+//Phép OR nhị phân
+vector<bool> orBIN(vector<bool> a, vector<bool> b);
+//Phép XOR nhị phân
+vector<bool> xorBIN(vector<bool> a, vector<bool> b);
+//Phép NOT nhị phân
+vector<bool> notBIN(vector<bool> a);
