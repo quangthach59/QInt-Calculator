@@ -5,8 +5,11 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 using namespace std;
+#include <iostream>
 #include <string>
-#include "Code.h"
+#include <vector>
+#include <string>
+#include "Qint.h"
 namespace QIntCalculator {
 	using namespace QIntCalculator;
 	/// <summary>
@@ -17,7 +20,7 @@ namespace QIntCalculator {
 	public:
 		static QintC^ instance;
 		QintC(void)
-		{				
+		{
 			InitializeComponent();
 			instance = this;
 		};
@@ -69,7 +72,7 @@ namespace QIntCalculator {
 				delete components;
 			}
 		};
-	
+
 
 	private:
 		/// <summary>
@@ -708,99 +711,105 @@ namespace QIntCalculator {
 		}
 #pragma endregion
 
-private: void AddToInput(String^ s) {
-	instance->tbInput->Paste(s);
-};
-private: System::Void QintC_Load(Object^  sender, EventArgs^  e);
-private: System::Void btnA_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnB_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnC_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnD_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnE_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnF_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn0_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn1_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn2_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn3_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn4_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn5_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn6_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn7_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn8_Click(Object^  sender, EventArgs^  e);
-private: System::Void btn9_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnAdd_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnSubtract_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnMultiply_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnDivide_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnAnd_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnOr_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnXor_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnNot_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnClear_Click(Object^  sender, EventArgs^  e);
-private: System::Void btnDel_Click(Object^  sender, EventArgs^  e);
-private: System::Void rbHEX_CheckedChanged(Object^  sender, EventArgs^  e);
-private: System::Void rbDEC_CheckedChanged(Object^  sender, EventArgs^  e);
-private: System::Void rbBIN_CheckedChanged(Object^  sender, EventArgs^  e);
-private: System::Void QintC_KeyPress(Object^  sender, KeyPressEventArgs^  e) {
-	switch (e->KeyChar)
-	{
-	case '0': btn0_Click(sender, e); break;
-	case '1': btn1_Click(sender, e); break;
-	case '2': btn2_Click(sender, e); break;
-	case '3': btn3_Click(sender, e); break;
-	case '4': btn4_Click(sender, e); break;
-	case '5': btn5_Click(sender, e); break;
-	case '6': btn6_Click(sender, e); break;
-	case '7': btn7_Click(sender, e); break;
-	case '8': btn8_Click(sender, e); break;
-	case '9': btn9_Click(sender, e); break;
-	case 'A': case 'a': btnA_Click(sender, e); break;
-	case 'B': case 'b': btnB_Click(sender, e); break;
-	case 'C': case 'c': btnC_Click(sender, e); break;
-	case 'D': case 'd': btnD_Click(sender, e); break;
-	case 'E': case 'e': btnE_Click(sender, e); break;
-	case 'F': case 'f': btnF_Click(sender, e); break;
-	case '+': btnAdd_Click(sender, e); break;
-	case '-': btnSubtract_Click(sender, e); break;
-	case '*': btnMultiply_Click(sender, e); break;
-	case '/': btnDivide_Click(sender, e); break;
-	case '&': btnAnd_Click(sender, e); break;
-	case '|': btnOr_Click(sender, e); break;
-	case '^': btnXor_Click(sender, e); break;
-	case '~': btnNot_Click(sender, e); break;
-	case 8: btnDel_Click(sender, e); break;	//Mã ASCII của phím backspace
-	case 13: btnEqual_Click(sender, e); break; //Nhấn enter hoặc dấu =, xem như kết thúc phép tính
-	}
-};
-
-private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
-	string a = Str_to_str(tbInput->Text);
-	int n = a.find_first_not_of("0123456789ABCDEF");
-	if (n > 0)
-	{
-		string p1, p3;
-		char p2 = a[n];
-		p1 = a.substr(0, n);
-		p3 = a.substr(n + 1, a.length()-1);
-		//tbOutput->Text = rs;
-		switch (p2)
+	private: void AddToInput(String^ s) {
+		instance->tbInput->Paste(s);
+	};
+	string Str_to_str(String^ s);
+	String^ str_to_Str(string s);
+	private: System::Void QintC_Load(Object^  sender, EventArgs^  e);
+	private: System::Void btnA_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnB_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnC_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnD_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnE_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnF_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn0_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn1_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn2_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn3_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn4_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn5_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn6_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn7_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn8_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btn9_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnAdd_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnSubtract_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnMultiply_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnDivide_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnAnd_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnOr_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnXor_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnNot_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnClear_Click(Object^  sender, EventArgs^  e);
+	private: System::Void btnDel_Click(Object^  sender, EventArgs^  e);
+	private: System::Void rbHEX_CheckedChanged(Object^  sender, EventArgs^  e);
+	private: System::Void rbDEC_CheckedChanged(Object^  sender, EventArgs^  e);
+	private: System::Void rbBIN_CheckedChanged(Object^  sender, EventArgs^  e);
+	private: System::Void QintC_KeyPress(Object^  sender, KeyPressEventArgs^  e) {
+		switch (e->KeyChar)
 		{
-		case '+': break;
-		case '-': break;
-		case '*': break;
-		case '/': break;
-		case '&': break;
-		case '|': break;
-		case '^': break;
-		case '~': break;
-		case '<<': break;
+		case '0': btn0_Click(sender, e); break;
+		case '1': btn1_Click(sender, e); break;
+		case '2': btn2_Click(sender, e); break;
+		case '3': btn3_Click(sender, e); break;
+		case '4': btn4_Click(sender, e); break;
+		case '5': btn5_Click(sender, e); break;
+		case '6': btn6_Click(sender, e); break;
+		case '7': btn7_Click(sender, e); break;
+		case '8': btn8_Click(sender, e); break;
+		case '9': btn9_Click(sender, e); break;
+		case 'A': case 'a': btnA_Click(sender, e); break;
+		case 'B': case 'b': btnB_Click(sender, e); break;
+		case 'C': case 'c': btnC_Click(sender, e); break;
+		case 'D': case 'd': btnD_Click(sender, e); break;
+		case 'E': case 'e': btnE_Click(sender, e); break;
+		case 'F': case 'f': btnF_Click(sender, e); break;
+		case '+': btnAdd_Click(sender, e); break;
+		case '-': btnSubtract_Click(sender, e); break;
+		case '*': btnMultiply_Click(sender, e); break;
+		case '/': btnDivide_Click(sender, e); break;
+		case '&': btnAnd_Click(sender, e); break;
+		case '|': btnOr_Click(sender, e); break;
+		case '^': btnXor_Click(sender, e); break;
+		case '~': btnNot_Click(sender, e); break;
+		case 8: btnDel_Click(sender, e); break;	//Mã ASCII của phím backspace
+		case 13: btnEqual_Click(sender, e); break; //Nhấn enter hoặc dấu =, xem như kết thúc phép tính
 		}
+	};
+
+			 
+	private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
+		//string a = Str_to_str(tbInput->Text);
+		//int n = a.find_first_not_of("0123456789ABCDEF");
+		//if (n > 0)
+		//{
+		//	string p1, p3;
+		//	char p2 = a[n];
+		//	p1 = a.substr(0, n);
+		//	p3 = a.substr(n + 1, a.length()-1);
+		//	//tbOutput->Text = rs;
+		//	switch (p2)
+		//	{
+		//	case '+': break;
+		//	case '-': break;
+		//	case '*': break;
+		//	case '/': break;
+		//	case '&': break;
+		//	case '|': break;
+		//	case '^': break;
+		//	case '~': break;
+		//	case '<<': break;
+		//	}
+		//}
+		//else
+		//	MessageBox::Show("Invalid calculation!");
+		vector<bool> a = HexToBin(Str_to_str(tbInput->Text));
+		string x = BinToHex(a);
+		tbOutput->Text = str_to_Str(x);
+		
 	}
-	else
-		MessageBox::Show("Invalid calculation!");
-	
-}
-private: System::Void btnImport_Click(System::Object^  sender, System::EventArgs^  e) {
-}
-};
+	private: System::Void btnImport_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	};
 }

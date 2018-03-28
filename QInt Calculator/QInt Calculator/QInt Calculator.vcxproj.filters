@@ -18,10 +18,7 @@
     <ClCompile Include="QintC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainUI.cpp">
+    <ClCompile Include="Qint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +26,7 @@
     <ClInclude Include="QintC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Code.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainUI.h">
+    <ClInclude Include="Qint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

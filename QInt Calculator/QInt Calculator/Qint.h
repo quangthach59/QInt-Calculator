@@ -2,18 +2,27 @@
 #include<iostream>
 #include<string>
 #include<vector>
+
 using namespace std;
-using namespace System;
-//Chuyển đổi chuỗi kiểu System::String sang string C++
-string Str_to_str(String^ s);
+class Qint;
+//Chuyển từ 2 qua 10
+//Input: Chuỗi nhị phân
+//Output: Chuỗi thập phân
+string BinToDecStr(vector<bool> Bin);
+vector<bool> DecToBin(Qint x);
 
-//Chuyển đổi chuỗi kiểu string C++ sang System::String
-String^ str_to_Str(string s);
-
-
-struct Qint
+class Qint
 {
+public:
+	Qint();
+	~Qint();
 	int data[4];
+	//--------------------
+	void ShowQInt()
+	{
+		vector<bool> a = DecToBin(*this);
+		cout << BinToDecStr(a);
+	}
 };
 
 void CreateQint(Qint &Q);
@@ -24,7 +33,7 @@ void CreateQint(Qint &Q);
 Qint BinToDec(vector<bool> x);
 
 //Hàm show bit của Qint
-void Showbit(Qint Q);
+void PrintQInt(Qint Q);
 
 //Hàm lấy giá trị bit ở vị trí thứ i
 int GetBit(Qint a, int i);
@@ -61,61 +70,13 @@ vector<bool> StrBinToBin(string bin);
 //Output: Mảng bool hệ Nhị Phân
 vector<bool> HexToBin(string H);
 
-////Hàm chứ từ điển chuyển Bit sang Hex
-//char BitTo1Hex(bool bit[4])
-//{
-//	int value = bit[0] * pow(2, 3) + bit[1] * pow(2, 2) + bit[2] * pow(2, 1) + bit[3];
-//	switch (value)
-//	{
-//	case 0: return '0';
-//	case 1: return '1';
-//	case 2: return '2';
-//	case 3: return '3';
-//	case 4: return '4';
-//	case 5: return '5';
-//	case 6: return '6';
-//	case 7: return '7';
-//	case 8: return '8';
-//	case 9: return '9';
-//	case 10: return 'A';
-//	case 11: return 'B';
-//	case 12: return 'C';
-//	case 13: return 'D';
-//	case 14: return 'E';
-//	case 15: return 'F';
-//	}
-//}
-//
-//char* CreatBin()
-//{
-//	char *a = new char[128];
-//	for (int i = 0; i < 128; i++)
-//	{
-//		a[i] = 0;
-//	}
-//	return a;
-//}
-//
-////Hàm chuyển Nhị Phân sang Thập Lục Phân
-////Input: Số nhị phân(bool *bin)
-////Output: CHuỗi chứa hệ 16 tương ứng(char*)
-//char* BinToHex(bool *bit)
-//{
-//	char* kq = CreatBin();
-//	int n = 0;
-//	bool temp[4];
-//	for (int i = 127; i >= 0; i--)
-//	{
-//		if (i % 4 == 0  && i != 0)
-//		{
-//			kq[n] = BitTo1Hex(temp);
-//			n++;
-//		}
-//		temp[i % 4] = bit[i];
-//
-//	}
-//}
+//Hàm chứ từ điển chuyển Bit sang Hex
+char BitTo1Hex(bool bit[4]);
 
+//Hàm chuyển Nhị Phân sang Thập Lục Phân
+//Input: Số nhị phân(bool *bin)
+//Output: CHuỗi chứa hệ 16 tương ứng(char*)
+string BinToHex(vector<bool> Bin);
 
 
 //-----------------------------------------------------------------
@@ -125,4 +86,9 @@ vector<bool> HexToBin(string H);
 //Input: Chuỗi số Thập Phân(String Dec)
 //Output: CHuỗi Thập Phân kết quả
 int IntDiv2(string &Dec);
-vector<bool> DecToBin(string Dec);
+vector<bool> StrDecToBin(string Dec);
+
+
+//Hàm nhập số Qint
+void ScanQInt(Qint &x);
+

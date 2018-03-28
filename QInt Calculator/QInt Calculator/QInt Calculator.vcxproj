@@ -135,13 +135,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Code.cpp" />
-    <ClCompile Include="MainUI.cpp" />
+    <ClCompile Include="Qint.cpp" />
     <ClCompile Include="QintC.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Code.h" />
-    <ClInclude Include="MainUI.h" />
+    <ClInclude Include="Qint.h" />
     <ClInclude Include="QintC.h">
       <FileType>CppForm</FileType>
     </ClInclude>

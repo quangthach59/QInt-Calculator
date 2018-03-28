@@ -1,22 +1,12 @@
-﻿#include"Code.h"
-//Chuyển đổi chuỗi kiểu System::String sang string C++
-string Str_to_str(String^ s)
+﻿#include "Qint.h"
+
+Qint::Qint()
 {
-	string os;
-	using namespace Runtime::InteropServices;
-	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
-	os = chars;
-	return os;
 }
 
-//Chuyển đổi chuỗi kiểu string C++ sang System::String
-String^ str_to_Str(string s)
+Qint::~Qint()
 {
-	String^ os = gcnew String(s.c_str());
-	return os;
 }
-
-
 void CreateQint(Qint &Q)
 {
 	Q.data[0] = Q.data[1] = Q.data[2] = Q.data[3] = 0;
@@ -41,10 +31,11 @@ Qint BinToDec(vector<bool> x)
 	return Q;
 }
 
-void Showbit(Qint Q)
+void PrintQInt(Qint Q)
 {
 	for (int i = 0; i < 128; i++)
 	{
+
 		cout << (((Q.data[i / 32] >> 31) - (i % 32)) & 1);
 	}
 	cout << endl;
@@ -93,7 +84,7 @@ string Translate(char Hex)
 	case 'E': return "1110";
 	case 'F': return "1111";
 	}
-	return "error!";
+	return "";
 }
 
 //Hàm chuyển hệ 16 sang Hệ 2 (dạng chuỗi)
@@ -115,9 +106,16 @@ string HexToBin_Str(string H)
 vector<bool> StrBinToBin(string bin)
 {
 	vector<bool> a;
-	for (int i = 0; i < (int)bin.length(); i++)
+	//Xem còn thiếu bao nhiêu bit biểu diễn
+	//Bổ sung bit 0 vào đầu cho đủ
+	int temp = 128 - bin.length();
+	for (int i = 0; i < temp; i++)
 	{
-		a.push_back(bin[i] - 48);
+		a.push_back(0);
+	}
+	for (int i = temp; i < 128; i++)
+	{
+		a.push_back(bin[i - temp] - 48);
 	}
 	return a;
 }
@@ -154,7 +152,7 @@ int IntDiv2(string &Dec)
 //Chuyển từ 10 qua 2
 //Input: Chuỗi string
 //Output: Chuỗi nhị phân kết quả
-vector<bool> DecToBin(string Dec)
+vector<bool> StrDecToBin(string Dec)
 {
 	int R;
 	vector<bool> tmp;
@@ -163,6 +161,10 @@ vector<bool> DecToBin(string Dec)
 	{
 		R = IntDiv2(Dec);
 		tmp.push_back(R);
+	}
+	while (tmp.size() < 128)
+	{
+		tmp.push_back(0);
 	}
 	for (int i = 0; i < (int)tmp.size(); i++)
 	{
@@ -173,7 +175,7 @@ vector<bool> DecToBin(string Dec)
 //Hàm nhân 2
 //Ipnut: Số n
 //Output: Kết quả nhân
-string Multiply(string a)//16
+string Multiply(string &a)//16
 {
 	int len = a.length() - 1;
 	int nho = 0;
@@ -257,11 +259,99 @@ string Sum(string a, string b)
 //Output: Chuỗi thập phân
 string BinToDecStr(vector<bool> Bin)
 {
-	int k = Bin.size();
-	string Dec="0";
-	for (int i = k - 1; i >= 0; i--)
+	int k = Bin.size() - 1;
+	string Dec = "0";
+	for (int i = k; i >= 0; i--)
 	{
-		Dec = Sum(Dec, Power(k - i));
+		if (Bin[i] == 1)
+		{
+			Dec = Sum(Dec, Power(k - i));
+		}
 	}
 	return Dec;
 }
+
+//Hàm toán tử NOT
+void operator~(Qint Q)
+{
+	for (int i = 0; i < 128; i++)
+	{
+		Q.data[i / 4] &= (1 << (i % 32 - 1));
+	}
+}
+
+
+
+// tim vi tri set
+void timViTriSet(int &vitri, int i)
+{
+	if (i / 32 == 0)
+		vitri = 0;
+	if (i / 32 == 1)
+		vitri = 1;
+	if (i / 32 == 2)
+		vitri = 2;
+	if (i / 32 == 3)
+		vitri = 3;
+}
+
+
+//Hàm nhập số Qint
+void ScanQInt(Qint &x)
+{
+	string s;
+	cout << "-->Nhap so QInt: ";
+	cin >> s;
+	vector<bool> bin = StrDecToBin(s);
+	x = BinToDec(bin);
+}
+
+//Hàm chứ từ điển chuyển Bit sang Hex
+char BitTo1Hex(bool bit[4])
+{
+	int value = bit[0] * (int)pow(2, 3) + bit[1] * (int)pow(2, 2) + bit[2] * (int)pow(2, 1) + bit[3];
+	switch (value)
+	{
+	case 0: return '0';
+	case 1: return '1';
+	case 2: return '2';
+	case 3: return '3';
+	case 4: return '4';
+	case 5: return '5';
+	case 6: return '6';
+	case 7: return '7';
+	case 8: return '8';
+	case 9: return '9';
+	case 10: return 'A';
+	case 11: return 'B';
+	case 12: return 'C';
+	case 13: return 'D';
+	case 14: return 'E';
+	case 15: return 'F';
+	}
+	return '\0';
+}
+
+
+//Hàm chuyển Nhị Phân sang Thập Lục Phân
+//Input: Số nhị phân(bool *bin)
+//Output: CHuỗi chứa hệ 16 tương ứng(char*)
+string BinToHex(vector<bool> Bin)
+{
+	string Hex;
+	bool temp[4];
+	for (int i = 127; i >= 0; i--)
+	{
+		temp[i % 4] = Bin[i];
+		if (i % 4 == 0)
+		{
+			Hex = BitTo1Hex(temp) + Hex;
+		}
+	}
+	return Hex;
+}
+
+
+
+
+
