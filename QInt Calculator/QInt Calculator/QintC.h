@@ -12,51 +12,7 @@ using namespace std;
 
 namespace QIntCalculator {
 	using namespace QIntCalculator;
-	
-	
-
-	//class Qint;
-	//string Str_to_str(String^ s);
-	//String^ str_to_Str(string s);
-	//string Multiply(string &a);
-	//string Power(int n);
-	//string Sum(string a, string b);
-	//string NoName(string a);
-	//string BinToDecStr(vector<bool> Bin);
-	//Qint BinToDec(vector<bool> x);
-	//int IntDiv2(string &Dec);
-	//vector<bool> StrDecToBin(string Dec);
-	//vector<bool> DecToBin(Qint Q);
-
-	//char BitTo1Hex(bool bit[4]);
-	//string BinToHex(vector<bool> Bin);
-	//string Translate(char Hex);
-	//string HexToBin_Str(string H);
-	//vector<bool> StrBinToBin(string bin);
-	//vector<bool> HexToBin(string H);
-
-	//string DecToHex(Qint x);
-	//Qint HexToDec(string Hex);
-
-	//void PrintQInt(Qint Q);
-	//int GetBit(Qint a, int i);
-
-	//void timViTriSet(int &vitri, int i);
-	//void ScanQInt(Qint &x);
-
-	////void operator~();
-
-	//vector<string> GetStringInput(string s);
-
-	//vector<bool> addBIN(vector<bool> a, vector<bool> b);
-	//vector<bool> subtractBIN(vector<bool> a, vector<bool> b);
-	//vector<bool> andBIN(vector<bool> a, vector<bool> b);
-	//vector<bool> orBIN(vector<bool> a, vector<bool> b);
-	//vector<bool> xorBIN(vector<bool> a, vector<bool> b);
-	//vector<bool> notBIN(vector<bool> a);
-	//static int GetNumeralSystemInput();
-	//extern void EquationProcess(vector<string> s);
-	public ref class QintC : public Form
+	ref class QintC : public System::Windows::Forms::Form
 	{
 	public:
 		static QintC^ instance;
@@ -65,6 +21,7 @@ namespace QIntCalculator {
 			InitializeComponent();
 			instance = this;
 		};
+#pragma region	Items declaration
 		System::Windows::Forms::TextBox^  tbInput;
 		System::Windows::Forms::TextBox^  tbOutput;
 		System::Windows::Forms::Label^  label1;
@@ -101,7 +58,7 @@ namespace QIntCalculator {
 		System::Windows::Forms::Button^  btn3;
 		System::Windows::Forms::Button^  btn2;
 		System::Windows::Forms::Button^  btn1;
-
+#pragma endregion
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -178,7 +135,7 @@ namespace QIntCalculator {
 			this->tbInput->Name = L"tbInput";
 			this->tbInput->ReadOnly = true;
 			this->tbInput->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->tbInput->Size = System::Drawing::Size(359, 105);
+			this->tbInput->Size = System::Drawing::Size(359, 141);
 			this->tbInput->TabIndex = 0;
 			this->tbInput->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -190,12 +147,12 @@ namespace QIntCalculator {
 			this->tbOutput->Font = (gcnew System::Drawing::Font(L"Consolas", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->tbOutput->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->tbOutput->Location = System::Drawing::Point(0, 106);
+			this->tbOutput->Location = System::Drawing::Point(0, 142);
 			this->tbOutput->Multiline = true;
 			this->tbOutput->Name = L"tbOutput";
 			this->tbOutput->ReadOnly = true;
 			this->tbOutput->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->tbOutput->Size = System::Drawing::Size(359, 82);
+			this->tbOutput->Size = System::Drawing::Size(359, 147);
 			this->tbOutput->TabIndex = 1;
 			this->tbOutput->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -205,7 +162,7 @@ namespace QIntCalculator {
 			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->label1->Location = System::Drawing::Point(12, 196);
+			this->label1->Location = System::Drawing::Point(12, 298);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(72, 21);
 			this->label1->TabIndex = 2;
@@ -217,7 +174,7 @@ namespace QIntCalculator {
 			this->rbHEX->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->rbHEX->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->rbHEX->Location = System::Drawing::Point(90, 194);
+			this->rbHEX->Location = System::Drawing::Point(90, 296);
 			this->rbHEX->Name = L"rbHEX";
 			this->rbHEX->Size = System::Drawing::Size(58, 25);
 			this->rbHEX->TabIndex = 3;
@@ -232,7 +189,7 @@ namespace QIntCalculator {
 			this->rbDEC->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->rbDEC->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->rbDEC->Location = System::Drawing::Point(154, 194);
+			this->rbDEC->Location = System::Drawing::Point(154, 296);
 			this->rbDEC->Name = L"rbDEC";
 			this->rbDEC->Size = System::Drawing::Size(57, 25);
 			this->rbDEC->TabIndex = 4;
@@ -247,7 +204,7 @@ namespace QIntCalculator {
 			this->rbBIN->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->rbBIN->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->rbBIN->Location = System::Drawing::Point(217, 194);
+			this->rbBIN->Location = System::Drawing::Point(217, 296);
 			this->rbBIN->Name = L"rbBIN";
 			this->rbBIN->Size = System::Drawing::Size(55, 25);
 			this->rbBIN->TabIndex = 5;
@@ -262,7 +219,7 @@ namespace QIntCalculator {
 			this->btnImport->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnImport->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->btnImport->Location = System::Drawing::Point(274, 190);
+			this->btnImport->Location = System::Drawing::Point(274, 292);
 			this->btnImport->Name = L"btnImport";
 			this->btnImport->Size = System::Drawing::Size(73, 33);
 			this->btnImport->TabIndex = 6;
@@ -277,7 +234,7 @@ namespace QIntCalculator {
 			this->btnA->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnA->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnA->Location = System::Drawing::Point(5, 229);
+			this->btnA->Location = System::Drawing::Point(5, 331);
 			this->btnA->Name = L"btnA";
 			this->btnA->Size = System::Drawing::Size(53, 40);
 			this->btnA->TabIndex = 23;
@@ -292,7 +249,7 @@ namespace QIntCalculator {
 			this->btnB->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnB->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnB->Location = System::Drawing::Point(64, 229);
+			this->btnB->Location = System::Drawing::Point(64, 331);
 			this->btnB->Name = L"btnB";
 			this->btnB->Size = System::Drawing::Size(53, 40);
 			this->btnB->TabIndex = 24;
@@ -307,7 +264,7 @@ namespace QIntCalculator {
 			this->btnC->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnC->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnC->Location = System::Drawing::Point(123, 229);
+			this->btnC->Location = System::Drawing::Point(123, 331);
 			this->btnC->Name = L"btnC";
 			this->btnC->Size = System::Drawing::Size(53, 40);
 			this->btnC->TabIndex = 25;
@@ -322,7 +279,7 @@ namespace QIntCalculator {
 			this->btnD->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnD->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnD->Location = System::Drawing::Point(182, 229);
+			this->btnD->Location = System::Drawing::Point(182, 331);
 			this->btnD->Name = L"btnD";
 			this->btnD->Size = System::Drawing::Size(53, 40);
 			this->btnD->TabIndex = 26;
@@ -337,7 +294,7 @@ namespace QIntCalculator {
 			this->btnE->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnE->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnE->Location = System::Drawing::Point(241, 229);
+			this->btnE->Location = System::Drawing::Point(241, 331);
 			this->btnE->Name = L"btnE";
 			this->btnE->Size = System::Drawing::Size(53, 40);
 			this->btnE->TabIndex = 27;
@@ -352,7 +309,7 @@ namespace QIntCalculator {
 			this->btnF->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnF->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnF->Location = System::Drawing::Point(300, 229);
+			this->btnF->Location = System::Drawing::Point(300, 331);
 			this->btnF->Name = L"btnF";
 			this->btnF->Size = System::Drawing::Size(53, 40);
 			this->btnF->TabIndex = 28;
@@ -367,7 +324,7 @@ namespace QIntCalculator {
 			this->btnSRight->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnSRight->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnSRight->Location = System::Drawing::Point(123, 413);
+			this->btnSRight->Location = System::Drawing::Point(123, 515);
 			this->btnSRight->Name = L"btnSRight";
 			this->btnSRight->Size = System::Drawing::Size(53, 40);
 			this->btnSRight->TabIndex = 52;
@@ -381,7 +338,7 @@ namespace QIntCalculator {
 			this->btnSLeft->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnSLeft->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnSLeft->Location = System::Drawing::Point(64, 413);
+			this->btnSLeft->Location = System::Drawing::Point(64, 515);
 			this->btnSLeft->Name = L"btnSLeft";
 			this->btnSLeft->Size = System::Drawing::Size(53, 40);
 			this->btnSLeft->TabIndex = 51;
@@ -395,7 +352,7 @@ namespace QIntCalculator {
 			this->btnNot->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnNot->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnNot->Location = System::Drawing::Point(182, 275);
+			this->btnNot->Location = System::Drawing::Point(182, 377);
 			this->btnNot->Name = L"btnNot";
 			this->btnNot->Size = System::Drawing::Size(53, 40);
 			this->btnNot->TabIndex = 50;
@@ -410,7 +367,7 @@ namespace QIntCalculator {
 			this->btnXor->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnXor->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnXor->Location = System::Drawing::Point(182, 321);
+			this->btnXor->Location = System::Drawing::Point(182, 423);
 			this->btnXor->Name = L"btnXor";
 			this->btnXor->Size = System::Drawing::Size(53, 40);
 			this->btnXor->TabIndex = 49;
@@ -425,7 +382,7 @@ namespace QIntCalculator {
 			this->btnOr->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnOr->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnOr->Location = System::Drawing::Point(182, 367);
+			this->btnOr->Location = System::Drawing::Point(182, 469);
 			this->btnOr->Name = L"btnOr";
 			this->btnOr->Size = System::Drawing::Size(53, 40);
 			this->btnOr->TabIndex = 48;
@@ -440,7 +397,7 @@ namespace QIntCalculator {
 			this->btnAnd->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnAnd->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnAnd->Location = System::Drawing::Point(182, 413);
+			this->btnAnd->Location = System::Drawing::Point(182, 515);
 			this->btnAnd->Name = L"btnAnd";
 			this->btnAnd->Size = System::Drawing::Size(53, 40);
 			this->btnAnd->TabIndex = 47;
@@ -455,7 +412,7 @@ namespace QIntCalculator {
 			this->btnClear->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnClear->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnClear->Location = System::Drawing::Point(300, 275);
+			this->btnClear->Location = System::Drawing::Point(300, 377);
 			this->btnClear->Name = L"btnClear";
 			this->btnClear->Size = System::Drawing::Size(53, 40);
 			this->btnClear->TabIndex = 46;
@@ -470,7 +427,7 @@ namespace QIntCalculator {
 			this->btnDel->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnDel->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnDel->Location = System::Drawing::Point(241, 275);
+			this->btnDel->Location = System::Drawing::Point(241, 377);
 			this->btnDel->Name = L"btnDel";
 			this->btnDel->Size = System::Drawing::Size(53, 40);
 			this->btnDel->TabIndex = 45;
@@ -484,7 +441,7 @@ namespace QIntCalculator {
 			this->btnDivide->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnDivide->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnDivide->Location = System::Drawing::Point(300, 321);
+			this->btnDivide->Location = System::Drawing::Point(300, 423);
 			this->btnDivide->Name = L"btnDivide";
 			this->btnDivide->Size = System::Drawing::Size(53, 40);
 			this->btnDivide->TabIndex = 43;
@@ -498,7 +455,7 @@ namespace QIntCalculator {
 			this->btnMultiply->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnMultiply->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnMultiply->Location = System::Drawing::Point(241, 321);
+			this->btnMultiply->Location = System::Drawing::Point(241, 423);
 			this->btnMultiply->Name = L"btnMultiply";
 			this->btnMultiply->Size = System::Drawing::Size(53, 40);
 			this->btnMultiply->TabIndex = 42;
@@ -512,7 +469,7 @@ namespace QIntCalculator {
 			this->btnSubtract->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnSubtract->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnSubtract->Location = System::Drawing::Point(300, 367);
+			this->btnSubtract->Location = System::Drawing::Point(300, 469);
 			this->btnSubtract->Name = L"btnSubtract";
 			this->btnSubtract->Size = System::Drawing::Size(53, 40);
 			this->btnSubtract->TabIndex = 41;
@@ -527,7 +484,7 @@ namespace QIntCalculator {
 			this->btnEqual->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnEqual->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnEqual->Location = System::Drawing::Point(241, 413);
+			this->btnEqual->Location = System::Drawing::Point(241, 515);
 			this->btnEqual->Name = L"btnEqual";
 			this->btnEqual->Size = System::Drawing::Size(112, 40);
 			this->btnEqual->TabIndex = 44;
@@ -541,7 +498,7 @@ namespace QIntCalculator {
 			this->btnAdd->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnAdd->ForeColor = System::Drawing::SystemColors::Window;
-			this->btnAdd->Location = System::Drawing::Point(241, 367);
+			this->btnAdd->Location = System::Drawing::Point(241, 469);
 			this->btnAdd->Name = L"btnAdd";
 			this->btnAdd->Size = System::Drawing::Size(53, 40);
 			this->btnAdd->TabIndex = 40;
@@ -555,7 +512,7 @@ namespace QIntCalculator {
 			this->btn0->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn0->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn0->Location = System::Drawing::Point(5, 413);
+			this->btn0->Location = System::Drawing::Point(5, 515);
 			this->btn0->Name = L"btn0";
 			this->btn0->Size = System::Drawing::Size(53, 40);
 			this->btn0->TabIndex = 31;
@@ -569,7 +526,7 @@ namespace QIntCalculator {
 			this->btn9->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn9->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn9->Location = System::Drawing::Point(123, 275);
+			this->btn9->Location = System::Drawing::Point(123, 377);
 			this->btn9->Name = L"btn9";
 			this->btn9->Size = System::Drawing::Size(53, 40);
 			this->btn9->TabIndex = 39;
@@ -583,7 +540,7 @@ namespace QIntCalculator {
 			this->btn8->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn8->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn8->Location = System::Drawing::Point(64, 275);
+			this->btn8->Location = System::Drawing::Point(64, 377);
 			this->btn8->Name = L"btn8";
 			this->btn8->Size = System::Drawing::Size(53, 40);
 			this->btn8->TabIndex = 38;
@@ -597,7 +554,7 @@ namespace QIntCalculator {
 			this->btn7->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn7->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn7->Location = System::Drawing::Point(5, 275);
+			this->btn7->Location = System::Drawing::Point(5, 377);
 			this->btn7->Name = L"btn7";
 			this->btn7->Size = System::Drawing::Size(53, 40);
 			this->btn7->TabIndex = 37;
@@ -611,7 +568,7 @@ namespace QIntCalculator {
 			this->btn6->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn6->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn6->Location = System::Drawing::Point(123, 321);
+			this->btn6->Location = System::Drawing::Point(123, 423);
 			this->btn6->Name = L"btn6";
 			this->btn6->Size = System::Drawing::Size(53, 40);
 			this->btn6->TabIndex = 36;
@@ -625,7 +582,7 @@ namespace QIntCalculator {
 			this->btn5->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn5->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn5->Location = System::Drawing::Point(64, 321);
+			this->btn5->Location = System::Drawing::Point(64, 423);
 			this->btn5->Name = L"btn5";
 			this->btn5->Size = System::Drawing::Size(53, 40);
 			this->btn5->TabIndex = 35;
@@ -639,7 +596,7 @@ namespace QIntCalculator {
 			this->btn4->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn4->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn4->Location = System::Drawing::Point(5, 321);
+			this->btn4->Location = System::Drawing::Point(5, 423);
 			this->btn4->Name = L"btn4";
 			this->btn4->Size = System::Drawing::Size(53, 40);
 			this->btn4->TabIndex = 34;
@@ -654,7 +611,7 @@ namespace QIntCalculator {
 			this->btn3->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn3->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn3->Location = System::Drawing::Point(123, 367);
+			this->btn3->Location = System::Drawing::Point(123, 469);
 			this->btn3->Name = L"btn3";
 			this->btn3->Size = System::Drawing::Size(53, 40);
 			this->btn3->TabIndex = 33;
@@ -668,7 +625,7 @@ namespace QIntCalculator {
 			this->btn2->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn2->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn2->Location = System::Drawing::Point(64, 367);
+			this->btn2->Location = System::Drawing::Point(64, 469);
 			this->btn2->Name = L"btn2";
 			this->btn2->Size = System::Drawing::Size(53, 40);
 			this->btn2->TabIndex = 32;
@@ -682,7 +639,7 @@ namespace QIntCalculator {
 			this->btn1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn1->ForeColor = System::Drawing::SystemColors::Window;
-			this->btn1->Location = System::Drawing::Point(5, 367);
+			this->btn1->Location = System::Drawing::Point(5, 469);
 			this->btn1->Name = L"btn1";
 			this->btn1->Size = System::Drawing::Size(53, 40);
 			this->btn1->TabIndex = 30;
@@ -695,7 +652,7 @@ namespace QIntCalculator {
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 21);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-			this->ClientSize = System::Drawing::Size(359, 461);
+			this->ClientSize = System::Drawing::Size(359, 561);
 			this->Controls->Add(this->btnSRight);
 			this->Controls->Add(this->btnSLeft);
 			this->Controls->Add(this->btnNot);
@@ -752,7 +709,49 @@ namespace QIntCalculator {
 	private: void AddToInput(String^ s) {
 		instance->tbInput->Paste(s);
 	};
-			 
+	private:
+		string Str_to_str(String^ s);
+		String^ str_to_Str(string s);
+
+		string Multiply(string &a);
+		string Power(int n);
+		string Sum(string a, string b);
+		string NoName(string a);
+
+		string BinToDecStr(vector<bool> Bin);
+		Qint BinToDec(vector<bool> x);
+		int IntDiv2(string &Dec);
+		vector<bool> StrDecToBin(string Dec);
+		vector<bool> DecToBin(Qint Q);
+		char BitTo1Hex(bool bit[4]);
+		string BinToHex(vector<bool> Bin);
+		string Translate(char Hex);
+		string HexToBin_Str(string H);
+		vector<bool> StrBinToBin(string bin);
+		vector<bool> HexToBin(string H);
+		string DecToHex(Qint x);
+		Qint HexToDec(string Hex);
+		void PrintQInt(Qint Q);
+		int GetBit(Qint a, int i);
+		void timViTriSet(int &vitri, int i);
+		void ScanQInt(Qint &x);
+		//void operator~();
+		vector<string> GetStringInput(string s);
+
+		vector<bool> addBIN(vector<bool> a, vector<bool> b);
+		vector<bool> subtractBIN(vector<bool> a, vector<bool> b);
+		vector<bool> andBIN(vector<bool> a, vector<bool> b);
+		vector<bool> orBIN(vector<bool> a, vector<bool> b);
+		vector<bool> xorBIN(vector<bool> a, vector<bool> b);
+		vector<bool> notBIN(vector<bool> a);
+		vector<bool> divideBIN(vector<bool> Q, vector<bool> M);
+		vector<bool> shiftLEFT(vector<bool> a, int b);
+		vector<bool> tachBIT(vector <bool> a, int x, int y);
+		vector<bool> ganBIT(vector <bool> a, vector<bool> b);
+		int GetNumeralSystemInput();
+		void EquationProcess(vector<string> s);
+
+
 	private: System::Void QintC_Load(Object^  sender, EventArgs^  e);
 	private: System::Void btnA_Click(Object^  sender, EventArgs^  e);
 	private: System::Void btnB_Click(Object^  sender, EventArgs^  e);
@@ -811,27 +810,15 @@ namespace QIntCalculator {
 		case '^': btnXor_Click(sender, e); break;
 		case '~': btnNot_Click(sender, e); break;
 		case 8: btnDel_Click(sender, e); break;	//Mã ASCII của phím backspace
-		case 13: btnEqual_Click(sender, e); break; //Nhấn enter hoặc dấu =, xem như kết thúc phép tính
+		case 13: case '=': btnEqual_Click(sender, e); break; //Nhấn enter hoặc dấu =, xem như kết thúc phép tính
 		}
 	};
 	private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
 		EquationProcess(GetStringInput(Str_to_str(tbInput->Text)));
+
 	}
 	private: System::Void btnImport_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 	};
-	
-	//public class Qint
-	//{
-	//private:
-
-	//public:
-	//	int data[4];
-	//	//Hàm dựng
-	//	Qint(void);
-	//	//Hàm hủy
-	//	~Qint(void);
-	//};
-	
 }
 
