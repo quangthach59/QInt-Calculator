@@ -8,15 +8,57 @@ using namespace std;
 #include <iostream>
 #include <string>
 #include <vector>
-//#include "Qint.h"
+#include "Qint.h"
+
 namespace QIntCalculator {
 	using namespace QIntCalculator;
-	/// <summary>
-	/// Summary for QintC
-	/// </summary>
+	
+	
+
+	//class Qint;
+	//string Str_to_str(String^ s);
+	//String^ str_to_Str(string s);
+	//string Multiply(string &a);
+	//string Power(int n);
+	//string Sum(string a, string b);
+	//string NoName(string a);
+	//string BinToDecStr(vector<bool> Bin);
+	//Qint BinToDec(vector<bool> x);
+	//int IntDiv2(string &Dec);
+	//vector<bool> StrDecToBin(string Dec);
+	//vector<bool> DecToBin(Qint Q);
+
+	//char BitTo1Hex(bool bit[4]);
+	//string BinToHex(vector<bool> Bin);
+	//string Translate(char Hex);
+	//string HexToBin_Str(string H);
+	//vector<bool> StrBinToBin(string bin);
+	//vector<bool> HexToBin(string H);
+
+	//string DecToHex(Qint x);
+	//Qint HexToDec(string Hex);
+
+	//void PrintQInt(Qint Q);
+	//int GetBit(Qint a, int i);
+
+	//void timViTriSet(int &vitri, int i);
+	//void ScanQInt(Qint &x);
+
+	////void operator~();
+
+	//vector<string> GetStringInput(string s);
+
+	//vector<bool> addBIN(vector<bool> a, vector<bool> b);
+	//vector<bool> subtractBIN(vector<bool> a, vector<bool> b);
+	//vector<bool> andBIN(vector<bool> a, vector<bool> b);
+	//vector<bool> orBIN(vector<bool> a, vector<bool> b);
+	//vector<bool> xorBIN(vector<bool> a, vector<bool> b);
+	//vector<bool> notBIN(vector<bool> a);
+	//static int GetNumeralSystemInput();
+	//extern void EquationProcess(vector<string> s);
 	public ref class QintC : public Form
 	{
-	public:		
+	public:
 		static QintC^ instance;
 		QintC(void)
 		{
@@ -80,10 +122,7 @@ namespace QIntCalculator {
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
+
 		void InitializeComponent(void)
 		{
 			this->tbInput = (gcnew System::Windows::Forms::TextBox());
@@ -713,8 +752,7 @@ namespace QIntCalculator {
 	private: void AddToInput(String^ s) {
 		instance->tbInput->Paste(s);
 	};
-			 string Str_to_str(String^ s);
-			 String^ str_to_Str(string s);
+			 
 	private: System::Void QintC_Load(Object^  sender, EventArgs^  e);
 	private: System::Void btnA_Click(Object^  sender, EventArgs^  e);
 	private: System::Void btnB_Click(Object^  sender, EventArgs^  e);
@@ -776,17 +814,24 @@ namespace QIntCalculator {
 		case 13: btnEqual_Click(sender, e); break; //Nhấn enter hoặc dấu =, xem như kết thúc phép tính
 		}
 	};
-
-
 	private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
-		
-		int n = Qint::GetNumeralSystemInput();
-		MessageBox::Show(n.ToString());
-		
-		
+		EquationProcess(GetStringInput(Str_to_str(tbInput->Text)));
 	}
 	private: System::Void btnImport_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 	};
+	
+	//public class Qint
+	//{
+	//private:
 
+	//public:
+	//	int data[4];
+	//	//Hàm dựng
+	//	Qint(void);
+	//	//Hàm hủy
+	//	~Qint(void);
+	//};
+	
 }
+

@@ -12,7 +12,7 @@ Qint::~Qint(void)
 //Hàm đổi Nhị Phân sang Qint
 //Input: Số nhị phân (bool *x)
 //output: Số Qint tương ứng
-Qint Qint::BinToDec(vector<bool> x)
+Qint QIntCalculator::BinToDec(vector<bool> x)
 {
 	Qint Q;
 	//CreateQint(Q);
@@ -28,7 +28,7 @@ Qint Qint::BinToDec(vector<bool> x)
 	return Q;
 }
 
-void Qint::PrintQInt(Qint Q)
+void QIntCalculator::PrintQInt(Qint Q)
 {
 	for (int i = 0; i < 128; i++)
 	{
@@ -37,7 +37,7 @@ void Qint::PrintQInt(Qint Q)
 	cout << endl;
 }
 
-int Qint::GetBit(Qint a, int i)
+int QIntCalculator::GetBit(Qint a, int i)
 {
 	return (a.data[i / 32] >> (31 - (i % 32))) & 1;
 }
@@ -45,7 +45,7 @@ int Qint::GetBit(Qint a, int i)
 //Hàm lấy bit từ Qint ra Mảng bool
 //Input: Số nguyên lớn(Qint Q)
 //Output: Mảng động bool nhị phân
-vector<bool> Qint::DecToBin(Qint Q)
+vector<bool> QIntCalculator::DecToBin(Qint Q)
 {
 	vector<bool> a;
 	for (int i = 0; i < 128; i++)
@@ -59,7 +59,7 @@ vector<bool> Qint::DecToBin(Qint Q)
 //Hàm chuyển từng kí tự từ hệ 16 sang Binary tương ứng
 //Input: Kí tự hệ 16(char Hex)
 //Output: Chuỗi Bit tương ứng (string)
-string Qint::Translate(char Hex)
+string QIntCalculator::Translate(char Hex)
 {
 	switch (Hex)
 	{
@@ -86,7 +86,7 @@ string Qint::Translate(char Hex)
 //Hàm chuyển hệ 16 sang Hệ 2 (dạng chuỗi)
 //Input: Chuỗi hệ cơ số 16 (string H)
 //Output: Chuỗi nhị phân tương ứng(string)
-string Qint::HexToBin_Str(string H)
+string QIntCalculator::HexToBin_Str(string H)
 {
 	string str;
 	for (int i = H.length() - 1; i >= 0; i--)
@@ -99,7 +99,7 @@ string Qint::HexToBin_Str(string H)
 //Hàm chuyển chuỗi Bit sang mảng Bool
 //Input: Chuỗi Bit (string bin)
 //Output: Mảng động bool chứa mã Bit tương ứng chuỗi (bool*)
-vector<bool> Qint::StrBinToBin(string bin)
+vector<bool> QIntCalculator::StrBinToBin(string bin)
 {
 	vector<bool> a;
 	//Xem còn thiếu bao nhiêu bit biểu diễn
@@ -119,7 +119,7 @@ vector<bool> Qint::StrBinToBin(string bin)
 //Hàm chuyển từ chuỗi hệ 16 sang Nhị Phân
 //Input: Chuỗi hệ 16 (String H), độ dài chuỗi H (int &len)
 //Output: Mảng bool hệ Nhị Phân
-vector<bool> Qint::HexToBin(string H)
+vector<bool> QIntCalculator::HexToBin(string H)
 {
 	string kq = HexToBin_Str(H);
 	return StrBinToBin(kq);
@@ -128,7 +128,7 @@ vector<bool> Qint::HexToBin(string H)
 //Hàm Chia một số Thập Phân cho 2
 //Input: Chuỗi số Thập Phân(String Dec)
 //Output: CHuỗi Thập Phân kết quả
-int Qint::IntDiv2(string &Dec)
+int QIntCalculator::IntDiv2(string &Dec)
 {
 	int nho = 0;
 	for (int i = 0; i < (int)Dec.length(); i++)
@@ -148,7 +148,7 @@ int Qint::IntDiv2(string &Dec)
 //Chuyển từ 10 qua 2
 //Input: Chuỗi string
 //Output: Chuỗi nhị phân kết quả
-vector<bool> Qint::StrDecToBin(string Dec)
+vector<bool> QIntCalculator::StrDecToBin(string Dec)
 {
 	int R;
 	vector<bool> tmp;
@@ -171,7 +171,7 @@ vector<bool> Qint::StrDecToBin(string Dec)
 //Hàm nhân 2
 //Ipnut: Số n
 //Output: Kết quả nhân
-string Qint::Multiply(string &a)//16
+string QIntCalculator::Multiply(string &a)//16
 {
 	int len = a.length() - 1;
 	int nho = 0;
@@ -190,7 +190,7 @@ string Qint::Multiply(string &a)//16
 //Hàm Power tunhs 2 mũ n
 //Input: Số nguyên n
 //Output: Chuỗi kết quả
-string Qint::Power(int n)
+string QIntCalculator::Power(int n)
 {
 	string kq = "1";
 	for (int i = 0; i < n; i++)
@@ -202,7 +202,7 @@ string Qint::Power(int n)
 //Cộng 2 số nguyên
 //Input: 2 chuỗi 
 //Output//1 chuỗi kết quả
-string Qint::Sum(string a, string b)
+string QIntCalculator::Sum(string a, string b)
 {
 	string kq;
 	int lenA = a.length() - 1;
@@ -239,31 +239,72 @@ string Qint::Sum(string a, string b)
 //Chuyển từ 2 qua 10
 //Input: Chuỗi nhị phân
 //Output: Chuỗi thập phân
-string Qint::BinToDecStr(vector<bool> Bin)
+
+string QIntCalculator::NoName(string a)
 {
-	int k = Bin.size() - 1;
+	string kq = "";
+	//Lấy số 2^127 gán vào b
+	string b = Power(127);
+	int m = a.length();
+	int n = b.length();
+	int k = n - m;
+	//Hiệu chỉnh a cùng độ dài b
+	for (int i = 0; i < k; i++)
+	{
+		a = '0' + a;
+	}
+	//Lấy 2^127 - a = kết quả âm
+	int nho = 0;
+	for (int i = n - 1; i >= 0; i--)
+	{
+		int k = (b[i] - 48) - (a[i] - 48) - nho;
+		if (k < 0)
+		{
+			kq = (char)(((b[i] - 48) + 10 - (a[i] - 48) - nho) + 48) + kq;
+			nho = 1;
+		}
+		else
+		{
+			kq = (char)(k + 48) + kq;
+			nho = 0;
+		}
+	}
+	//Xóa phần tử đầu bằng 0 nếu có
+	while (kq[0] == '0')
+	{
+		kq.erase(kq.begin());
+	}
+	return kq;
+}
+string QIntCalculator::BinToDecStr(vector<bool> Bin)
+{
 	string Dec = "0";
-	for (int i = k; i >= 0; i--)
+	for (int i = 127; i > 0; i--)
 	{
 		if (Bin[i] == 1)
 		{
-			Dec = Sum(Dec, Power(k - i));
+			Dec = Sum(Dec, Power(127 - i));
 		}
+	}
+	//Nếu bit đầu là 0 => số âm, gọi hàm -(2^127 - Dec)
+	if (Bin[0] == 1)
+	{
+		Dec = '-' + NoName(Dec);
 	}
 	return Dec;
 }
 
 //Hàm toán tử NOT
-void Qint::operator~()
-{
-	for (int i = 0; i < 4; i++)
-	{
-		data[i] = ~data[i];
-	}
-}
+//void operator~()
+//{
+//	for (int i = 0; i < 4; i++)
+//	{
+//		data[i] = ~data[i];
+//	}
+//}
 
 // tim vi tri set
-void Qint::timViTriSet(int &vitri, int i)
+void QIntCalculator::timViTriSet(int &vitri, int i)
 {
 	if (i / 32 == 0)
 		vitri = 0;
@@ -276,7 +317,7 @@ void Qint::timViTriSet(int &vitri, int i)
 }
 
 //Hàm nhập số Qint
-void Qint::ScanQInt(Qint &x)
+void QIntCalculator::ScanQInt(Qint &x)
 {
 	string s;
 	cout << "-->Nhap so QInt: ";
@@ -286,7 +327,7 @@ void Qint::ScanQInt(Qint &x)
 }
 
 //Hàm chứ từ điển chuyển Bit sang Hex
-char Qint::BitTo1Hex(bool bit[4])
+char QIntCalculator::BitTo1Hex(bool bit[4])
 {
 	int value = bit[0] * (int)pow(2, 3) + bit[1] * (int)pow(2, 2) + bit[2] * (int)pow(2, 1) + bit[3];
 	switch (value)
@@ -314,7 +355,7 @@ char Qint::BitTo1Hex(bool bit[4])
 //Hàm chuyển Nhị Phân sang Thập Lục Phân
 //Input: Số nhị phân(bool *bin)
 //Output: CHuỗi chứa hệ 16 tương ứng(char*)
-string Qint::BinToHex(vector<bool> Bin)
+string QIntCalculator::BinToHex(vector<bool> Bin)
 {
 	string Hex;
 	bool temp[4];
@@ -329,7 +370,7 @@ string Qint::BinToHex(vector<bool> Bin)
 	return Hex;
 }
 
-vector<string> Qint::GetStringInput(string s)
+vector<string> QIntCalculator::GetStringInput(string s)
 {
 	vector<string> str;
 	//Tìm kí tự là operator
@@ -362,33 +403,60 @@ vector<string> Qint::GetStringInput(string s)
 	}
 	return str;
 }
-int Qint::GetNumeralSystemInput()
+int QIntCalculator::GetNumeralSystemInput()
 {
-	if (QintC::instance->rbBIN->Checked==true)
+	if (QintC::instance->rbBIN->Checked == true)
 		return 2;	//hệ nhị phân
 	if (QintC::instance->rbDEC->Checked == true)
 		return 10;	//hệ thập phân
 	return 16;		//hệ thập lục phân
 
 }
-void Qint::EquationProcess(vector<string> s)
+void QIntCalculator::EquationProcess(vector<string> s)
 {
 	//có thực hiện với toán tử
 	if (s.size() == 3)
 	{
-
+		char opr = s[1][0];
+		switch (s[1][0])
+		{
+		case '+': break;
+		case '-': break;
+		case '*': break;
+		case '/': break;
+		case '&': break;
+		case '|': break;
+		case '^': break;
+		case '~': break;
+		case '<': case '>': break;
+		}
 	}
 	//đổi hệ đơn giản vì máy tính không cho nhập khoảng trắng
 	else if (s.size() == 1)
 	{
-
+		string result = "";
+		switch (GetNumeralSystemInput())
+		{
+		case 2:
+		{
+			result = "DEC: " + BinToDecStr(StrBinToBin(s[0]));
+		}; break;
+		case 10:
+		{
+			result = "BIN: ";
+		}; break;
+		case 16:
+		{
+			result = "BIN: ";
+		}; break;
+		QintC::instance->tbOutput->Text = str_to_Str(result);
+		
+		}
 	}
-
-
 }
 
 //Cộng 2 số nhị phân
-vector<bool> Qint::addBIN(vector<bool> a, vector<bool> b) {
+vector<bool> QIntCalculator::addBIN(vector<bool> a, vector<bool> b) {
 	vector<bool> kq(128);
 	int nho_Tam = 0;
 
@@ -428,7 +496,7 @@ vector<bool> Qint::addBIN(vector<bool> a, vector<bool> b) {
 }
 
 //Trừ 2 số nhị phân 
-vector<bool> Qint::subtractBIN(vector<bool> a, vector<bool> b) {
+vector<bool> QIntCalculator::subtractBIN(vector<bool> a, vector<bool> b) {
 	vector<bool> kq(128);
 	int nho_Tam = 0;
 	vector <bool> bu_1 = notBIN(b); //Lấy bù 1 của b
@@ -443,7 +511,7 @@ vector<bool> Qint::subtractBIN(vector<bool> a, vector<bool> b) {
 }
 
 // Phép AND nhị phân
-vector<bool> Qint::andBIN(vector<bool> a, vector<bool> b) {
+vector<bool> QIntCalculator::andBIN(vector<bool> a, vector<bool> b) {
 	vector<bool> kq(128);
 
 	for (int i = a.size() - 1; i > -1; i--) {
@@ -458,7 +526,7 @@ vector<bool> Qint::andBIN(vector<bool> a, vector<bool> b) {
 }
 
 //Phép OR nhị phân
-vector<bool> Qint::orBIN(vector<bool> a, vector<bool> b) {
+vector<bool> QIntCalculator::orBIN(vector<bool> a, vector<bool> b) {
 	vector<bool> kq(128);
 
 	for (int i = a.size() - 1; i > -1; i--) {
@@ -473,7 +541,7 @@ vector<bool> Qint::orBIN(vector<bool> a, vector<bool> b) {
 }
 
 //Phép XOR nhị phân
-vector<bool> Qint::xorBIN(vector<bool> a, vector<bool> b) {
+vector<bool> QIntCalculator::xorBIN(vector<bool> a, vector<bool> b) {
 	vector<bool> kq(128);
 
 	for (int i = a.size() - 1; i > -1; i--) {
@@ -488,7 +556,7 @@ vector<bool> Qint::xorBIN(vector<bool> a, vector<bool> b) {
 }
 
 //Phép NOT nhị phân
-vector<bool> Qint::notBIN(vector<bool> a) {
+vector<bool> QIntCalculator::notBIN(vector<bool> a) {
 	vector<bool> kq(128);
 
 	for (int i = a.size() - 1; i > -1; i--) {
@@ -502,7 +570,24 @@ vector<bool> Qint::notBIN(vector<bool> a) {
 	return kq;
 }
 
+//Hàm chuyển 10 -> 16
+string QIntCalculator::DecToHex(Qint x)
+{
+	vector<bool> bin = DecToBin(x);
+	string kq = BinToHex(bin);
+	while (kq[0] == '0')
+	{
+		kq.erase(kq.begin());
+	}
+	return kq;
+}
 
+//Hàm chuyển 16 -> 10
+Qint QIntCalculator::HexToDec(string Hex)
+{
+	vector<bool> bin = HexToBin(Hex);
+	return BinToDec(bin);
+}
 
 
 //#include "Qint.h"

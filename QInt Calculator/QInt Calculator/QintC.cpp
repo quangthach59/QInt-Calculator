@@ -170,7 +170,7 @@ System::Void QintC::QintC_Load(Object^  sender, EventArgs^  e) {
 
 
 //Chuyển đổi chuỗi kiểu System::String sang string C++
-string QintC::Str_to_str(String^ s)
+string QIntCalculator::Str_to_str(String^ s)
 {
 	string os;
 	using namespace Runtime::InteropServices;
@@ -180,8 +180,8 @@ string QintC::Str_to_str(String^ s)
 }
 
 //Chuyển đổi chuỗi kiểu string C++ sang System::String
-String^ QintC::str_to_Str(string s)
+String^ QIntCalculator::str_to_Str(string s)
 {
 	String^ os = gcnew String(s.c_str());
-	return os;
+	return os;	
 }
