@@ -1,9 +1,6 @@
 ﻿#include "QintC.h"
-
 using namespace QIntCalculator;
-
 [STAThreadAttribute]
-
 void Main()
 {
 	//Code khởi chạy giao diện windows form
@@ -174,7 +171,6 @@ System::Void QintC::QintC_Load(Object^  sender, EventArgs^  e) {
 }
 #pragma  endregion
 
-
 //Chuyển đổi chuỗi kiểu System::String sang string C++
 string QIntCalculator::QintC::Str_to_str(String^ s)
 {
@@ -207,7 +203,7 @@ string QIntCalculator::QintC::Multiply(string &a)//16
 	}
 	return a;
 }
-//Hàm Power tunhs 2 mũ n
+//Hàm Power tính 2 mũ n
 //Input: Số nguyên n
 //Output: Chuỗi kết quả
 string QIntCalculator::QintC::Power(int n)
@@ -558,7 +554,10 @@ void QIntCalculator::QintC::ScanQInt(Qint &x)
 }
 vector<string> QIntCalculator::QintC::GetStringInput(string s)
 {
+	
 	vector<string> str;
+	//Cơ số dữ liệu nhập hiện tại
+	str.push_back(Str_to_str(GetNumeralSystemInput().ToString()));
 	//Tìm kí tự là operator
 	int n = s.find_first_not_of("0123456789ABCDEF");
 	//Operator ở vị trí hợp lệ
@@ -578,14 +577,33 @@ vector<string> QIntCalculator::QintC::GetStringInput(string s)
 			p3 = s.substr(n + 1, s.length() - 1);
 			p2 = p;
 		}
+		//đối tượng 1
 		str.push_back(p1);
+		//toán tử
 		str.push_back(p2);
+		//đối tượng 2
 		str.push_back(p3);
 	}
 	//Không có operator, là phép đổi cơ số
 	else
 	{
+		//cơ số đích, 0 tức là dữ liệu nhập từ bàn phím, sẽ đổi sang 2 hệ còn lại
+		str.push_back("0");
+		//đối tượng duy nhất
 		str.push_back(s);
+	}
+	return str;
+}
+
+vector<string> QIntCalculator::QintC::GetStringInputFromFile(string s)
+{
+	vector<string> str;
+	while (s != "" && s.find(' ')>0)
+	{
+		str.push_back(s.substr(0, s.find(' ')));
+		if (s.find(' ') == -1)
+			break;
+		s = s.substr(s.find(' ')+1);
 	}
 	return str;
 }
@@ -798,56 +816,109 @@ int QIntCalculator::QintC::GetNumeralSystemInput()
 {
 	if (instance->rbBIN->Checked == true)
 		return 2;	//hệ nhị phân
-	if (QintC::instance->rbDEC->Checked == true)
+	if (instance->rbDEC->Checked == true)
 		return 10;	//hệ thập phân
 	return 16;		//hệ thập lục phân
 
 }
 //Xử lí phép tính
-void QIntCalculator::QintC::EquationProcess(vector<string> s)
+string QIntCalculator::QintC::EquationProcess(vector<string> s)
 {
-	//có thực hiện với toán tử
-	if (s.size() == 3)
+	string ans = ""; //đáp số của phép toán, dạng chuỗi
+	int curNS; //current numeral system = hệ đếm hiện tại
+	Int32::TryParse(str_to_Str(s[0]), curNS);
+	//Xét vector chứa bao nhiêu phần tử
+	//4 phần tử là phép tính: hệ - obj1 - operator - obj2
+	//3 phần tử: hệ - hệ đổi - main_obj (hệ đổi = 0 là đổi sang 2 hệ còn lại)
+	if (s.size() == 4)
 	{
-		switch (GetNumeralSystemInput())
+		vector<bool> obj1, obj2;
+		//Chuyển số dạng chuỗi về vector bool
+		switch (curNS)
 		{
-		case 2: break;
-		case 10: break;
-		case 16: break;
+		case 2: {
+			obj1 = StrBinToBin(s[1]);
+			obj2 = StrBinToBin(s[3]);
+		}; break;
+		case 10: {
+			obj1 = StrDecToBin(s[1]);
+			obj2 = StrDecToBin(s[3]);
+		}; break;
+		case 16: {
+			obj1 = HexToBin(s[1]);
+			obj2 = HexToBin(s[3]);
+		}; break;
 		};
-		char opr = s[1][0];
-		switch (s[1][0])
+		vector<bool> result;
+		char opr = s[2][0];
+		//Xét toán tử
+		switch (opr)
 		{
-		case '+': break;
-		case '-': break;
-		case '*': break;
-		case '/': break;
-		case '&': break;
-		case '|': break;
-		case '^': break;
-		case '~': break;
-		case '<': case '>': break;
+		case '+': result = addBIN(obj1,obj2); break;
+		case '-': result = subtractBIN(obj1, obj2); break;
+		case '*':; break;
+		case '/': result = divideBIN(obj1, obj2); break;
+		case '&': result = andBIN(obj1, obj2); break;
+		case '|': result = orBIN(obj1, obj2); break;
+		case '^': result = xorBIN(obj1, obj2); break;
+		case '~': result = notBIN(obj1); break;
+		case '<': case '>':; break;
 		}
+		switch (curNS)
+		{
+		case 2: ans = HexToBin_Str(BinToHex(result)); break;
+		case 10: ans = BinToDecStr(result); break;
+		case 16: ans = BinToHex(result); break;
+		};
 	}
-	//đổi hệ đơn giản vì máy tính không cho nhập khoảng trắng
-	else if (s.size() == 1)
+	//đổi hệ
+	else if (s.size() == 3)
 	{
-		string result = "";
-		switch (GetNumeralSystemInput())
+		vector<bool> obj;
+		switch (curNS)
 		{
 		case 2:
 		{
-			result = "DEC: " + BinToDecStr(StrBinToBin(s[0])) + Str_to_str(System::Environment::NewLine) + "HEX: " + BinToHex(StrBinToBin(s[0]));
+			obj = StrBinToBin(s[2]);
 		}; break;
 		case 10:
 		{
-			result = "BIN: " + HexToBin_Str(BinToHex(StrDecToBin(s[0]))) + Str_to_str(System::Environment::NewLine) + "HEX: " + DecToHex(BinToDec(StrDecToBin(s[0])));
+			obj = StrDecToBin(s[2]);
 		}; break;
 		case 16:
 		{
-			result = "BIN: " + HexToBin_Str(s[0]) + Str_to_str(System::Environment::NewLine) + "DEC: " + BinToDecStr(HexToBin(s[0]));
+			obj = HexToBin(s[2]);
 		}; break;		
 		}
-		instance->tbOutput->Text = str_to_Str(result);
+		int desNS; //destination numeral system = hệ đếm đích
+		Int32::TryParse(str_to_Str(s[1]), desNS);
+		switch (desNS)
+		{
+		case 0:
+		{
+			if (curNS == 2)
+				ans = "DEC: " + BinToDecStr(obj) + Str_to_str(Environment::NewLine) + "HEX: " + BinToHex(obj);
+			else if (curNS == 10)
+				ans = "BIN: " + HexToBin_Str(BinToHex(obj)) + Str_to_str(Environment::NewLine) + "HEX: " + BinToHex(obj);
+			else if (curNS == 16)
+				ans = "BIN: " + HexToBin_Str(BinToHex(obj)) + Str_to_str(Environment::NewLine) + "DEC: " + BinToDecStr(obj);
+		}; break;
+		case 2: ans = HexToBin_Str(BinToHex(obj)); break;
+		case 10: ans = BinToDecStr(obj); break;
+		case 16: ans =  BinToHex(obj); break;
+		}		
 	}
+	return ans;
+}
+
+void QIntCalculator::QintC::WriteAnswerToFile(String^ ans)
+{
+	StreamWriter^f = gcnew StreamWriter("output.txt", true);
+	f->WriteLine(ans);
+	f->Close();
+}
+
+void QIntCalculator::QintC::ShowAnswer(String^ ans)
+{
+	instance->tbOutput->Text = ans;
 }

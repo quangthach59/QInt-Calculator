@@ -1,15 +1,15 @@
-﻿using namespace System;
+﻿#define _CRT_SECURE_NO_WARNINGS
+using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
 using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 using namespace std;
-#include <iostream>
+using namespace System::IO;
 #include <string>
 #include <vector>
 #include "Qint.h"
-
 namespace QIntCalculator {
 	using namespace QIntCalculator;
 	ref class QintC : public System::Windows::Forms::Form
@@ -57,6 +57,9 @@ namespace QIntCalculator {
 		System::Windows::Forms::Button^  btn4;
 		System::Windows::Forms::Button^  btn3;
 		System::Windows::Forms::Button^  btn2;
+	public: System::Windows::Forms::OpenFileDialog^  ofdData;
+
+	public:
 		System::Windows::Forms::Button^  btn1;
 #pragma endregion
 	protected:
@@ -118,6 +121,7 @@ namespace QIntCalculator {
 			this->btn3 = (gcnew System::Windows::Forms::Button());
 			this->btn2 = (gcnew System::Windows::Forms::Button());
 			this->btn1 = (gcnew System::Windows::Forms::Button());
+			this->ofdData = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->SuspendLayout();
 			// 
 			// tbInput
@@ -647,6 +651,12 @@ namespace QIntCalculator {
 			this->btn1->UseVisualStyleBackColor = true;
 			this->btn1->Click += gcnew System::EventHandler(this, &QintC::btn1_Click);
 			// 
+			// ofdData
+			// 
+			this->ofdData->Filter = L"Text file (.txt)|*.txt";
+			this->ofdData->InitialDirectory = L"Environment.CurrentDirectory + \"\\\\\"";
+			this->ofdData->Title = L"\"Select text file to open\"";
+			// 
 			// QintC
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 21);
@@ -710,7 +720,9 @@ namespace QIntCalculator {
 		instance->tbInput->Paste(s);
 	};
 	private:
+		//Chuyển đổi System::String → string C++
 		string Str_to_str(String^ s);
+		//Chuyển đổi string C++ → System::String
 		String^ str_to_Str(string s);
 
 		string Multiply(string &a);
@@ -736,8 +748,10 @@ namespace QIntCalculator {
 		void timViTriSet(int &vitri, int i);
 		void ScanQInt(Qint &x);
 		//void operator~();
+		//Đầu vào chuỗi, trả về vector kiểu chuỗi các thành phần biểu thức
 		vector<string> GetStringInput(string s);
-
+		//Xử lí chuỗi đọc từ tập tin, các đối tượng cách nhau bởi khoảng trắng
+		vector<string> GetStringInputFromFile(string s);
 		vector<bool> addBIN(vector<bool> a, vector<bool> b);
 		vector<bool> subtractBIN(vector<bool> a, vector<bool> b);
 		vector<bool> andBIN(vector<bool> a, vector<bool> b);
@@ -748,9 +762,12 @@ namespace QIntCalculator {
 		vector<bool> shiftLEFT(vector<bool> a, int b);
 		vector<bool> tachBIT(vector <bool> a, int x, int y);
 		vector<bool> ganBIT(vector <bool> a, vector<bool> b);
+		//Trả về hệ cơ số đang nhập lấy từ radio button, giá trị 2/10/16
 		int GetNumeralSystemInput();
-		void EquationProcess(vector<string> s);
-
+		//Xử lí vector kiểu chuỗi chứa các thành phần biểu thức, trả về kết quả
+		string EquationProcess(vector<string> s);
+		void WriteAnswerToFile(String^ ans);
+		void ShowAnswer(String^ ans);
 
 	private: System::Void QintC_Load(Object^  sender, EventArgs^  e);
 	private: System::Void btnA_Click(Object^  sender, EventArgs^  e);
@@ -814,10 +831,26 @@ namespace QIntCalculator {
 		}
 	};
 	private: System::Void btnEqual_Click(Object^  sender, EventArgs^  e) {
-		EquationProcess(GetStringInput(Str_to_str(tbInput->Text)));
-
+		ShowAnswer(str_to_Str(EquationProcess(GetStringInput(Str_to_str(tbInput->Text)))));
 	}
 	private: System::Void btnImport_Click(System::Object^  sender, System::EventArgs^  e) {
+		ofdData->ShowDialog();
+		if (ofdData->FileName == "")
+		{
+			MessageBox::Show("No file selected!", "Qint Calculator", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		StreamReader^f = gcnew StreamReader(ofdData->FileName);
+		string s;
+		while (f->EndOfStream == 0)
+		{
+			s = Str_to_str(f->ReadLine());
+			
+			WriteAnswerToFile(str_to_Str(EquationProcess(GetStringInputFromFile(s))));
+		}
+		MessageBox::Show("Answers written to " + Environment::CurrentDirectory + "\\output.txt!", "Qint Calculator");
+		string fpath = "notepad.exe " + Str_to_str(Environment::CurrentDirectory) + "\\output.txt";
+		system(fpath.c_str());
 	}
 	};
 }
