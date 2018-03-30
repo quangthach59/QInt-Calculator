@@ -58,6 +58,7 @@ namespace QIntCalculator {
 		System::Windows::Forms::Button^  btn3;
 		System::Windows::Forms::Button^  btn2;
 	public: System::Windows::Forms::OpenFileDialog^  ofdData;
+	public: System::Windows::Forms::SaveFileDialog^  sfdData;
 
 	public:
 		System::Windows::Forms::Button^  btn1;
@@ -114,6 +115,7 @@ namespace QIntCalculator {
 			this->btn2 = (gcnew System::Windows::Forms::Button());
 			this->btn1 = (gcnew System::Windows::Forms::Button());
 			this->ofdData = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->sfdData = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->SuspendLayout();
 			// 
 			// tbInput
@@ -645,6 +647,12 @@ namespace QIntCalculator {
 			this->ofdData->InitialDirectory = L"Environment.CurrentDirectory + \"\\\\\"";
 			this->ofdData->Title = L"\"Select text file to open\"";
 			// 
+			// sfdData
+			// 
+			this->sfdData->Filter = L"Text file (.txt)|*.txt";
+			this->sfdData->InitialDirectory = L"Environment.CurrentDirectory + \"\\\\\"";
+			this->sfdData->Title = L"\"Type file name to save\"";
+			// 
 			// QintC
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 21);
@@ -868,16 +876,26 @@ namespace QIntCalculator {
 			MessageBox::Show("No file selected!", "Qint Calculator", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
-		StreamReader^f = gcnew StreamReader(ofdData->FileName);
-		string s;
-		while (f->EndOfStream == 0)
+		StreamReader^fr = gcnew StreamReader(ofdData->FileName);
+		vector<string> s;
+		while (fr->EndOfStream == 0)
 		{
-			s = Str_to_str(f->ReadLine());
-
-			WriteAnswerToFile(str_to_Str(EquationProcess(GetStringInputFromFile(s))));
+			s.push_back(Str_to_str(fr->ReadLine()));
 		}
-		MessageBox::Show("Answers written to " + Environment::CurrentDirectory + "\\output.txt!", "Qint Calculator");
-		string fpath = "notepad.exe " + Str_to_str(Environment::CurrentDirectory) + "\\output.txt";
+		sfdData->ShowDialog();
+		if (sfdData->FileName == "")
+		{
+			MessageBox::Show("You must select file name!", "Qint Calculator", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		for (int i = 0; i < (int)s.size(); i++)
+		{
+			StreamWriter^ fw = gcnew StreamWriter(sfdData->FileName, true);
+			fw->WriteLine(str_to_Str(EquationProcess(GetStringInputFromFile(s[i]))));
+			fw->Close();
+		}	
+		MessageBox::Show("Answers written to " + sfdData->FileName, "Qint Calculator");
+		string fpath = "notepad.exe " + Str_to_str(sfdData->FileName);
 		system(fpath.c_str());
 	}
 	};
