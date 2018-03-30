@@ -798,7 +798,6 @@ namespace QIntCalculator {
 		int GetNumeralSystemInput();
 		//Xử lí vector kiểu chuỗi chứa các thành phần biểu thức, trả về kết quả
 		string EquationProcess(vector<string> s);
-		void WriteAnswerToFile(String^ ans);
 		void ShowAnswer(String^ ans);
 
 	private: System::Void QintC_Load(Object^  sender, EventArgs^  e);

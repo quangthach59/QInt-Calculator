@@ -1144,14 +1144,6 @@ string QIntCalculator::QintC::EquationProcess(vector<string> s)
 		ans.erase(ans.begin());	
 	return ans;
 }
-
-void QIntCalculator::QintC::WriteAnswerToFile(String^ ans)
-{
-	StreamWriter^f = gcnew StreamWriter("output.txt", true);
-	f->WriteLine(ans);
-	f->Close();
-}
-
 void QIntCalculator::QintC::ShowAnswer(String^ ans)
 {
 	instance->tbOutput->Text = ans;
