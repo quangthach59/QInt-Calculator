@@ -103,12 +103,6 @@ System::Void QintC::rbHEX_CheckedChanged(Object^  sender, EventArgs^  e) {
 	btnD->Enabled = true;
 	btnE->Enabled = true;
 	btnF->Enabled = true;
-	btnSLeft->Enabled = false;
-	btnSRight->Enabled = false;
-	btnAnd->Enabled = false;
-	btnOr->Enabled = false;
-	btnXor->Enabled = false;
-	btnNot->Enabled = false;
 	btn2->Enabled = true;
 	btn3->Enabled = true;
 	btn4->Enabled = true;
@@ -126,12 +120,6 @@ System::Void QintC::rbDEC_CheckedChanged(Object^  sender, EventArgs^  e) {
 	btnD->Enabled = false;
 	btnE->Enabled = false;
 	btnF->Enabled = false;
-	btnSLeft->Enabled = false;
-	btnSRight->Enabled = false;
-	btnAnd->Enabled = false;
-	btnOr->Enabled = false;
-	btnXor->Enabled = false;
-	btnNot->Enabled = false;
 	btn2->Enabled = true;
 	btn3->Enabled = true;
 	btn4->Enabled = true;
@@ -149,20 +137,22 @@ System::Void QintC::rbBIN_CheckedChanged(Object^  sender, EventArgs^  e) {
 	btnD->Enabled = false;
 	btnE->Enabled = false;
 	btnF->Enabled = false;
-	btnSLeft->Enabled = true;
-	btnSRight->Enabled = true;
-	btnAnd->Enabled = true;
-	btnOr->Enabled = true;
-	btnXor->Enabled = true;
-	btnNot->Enabled = true;
-	btn2->Enabled = false;
+	/*btn2->Enabled = false;
 	btn3->Enabled = false;
 	btn4->Enabled = false;
 	btn5->Enabled = false;
 	btn6->Enabled = false;
 	btn7->Enabled = false;
 	btn8->Enabled = false;
-	btn9->Enabled = false;
+	btn9->Enabled = false;*/
+	btn2->Enabled = true;
+	btn3->Enabled = true;
+	btn4->Enabled = true;
+	btn5->Enabled = true;
+	btn6->Enabled = true;
+	btn7->Enabled = true;
+	btn8->Enabled = true;
+	btn9->Enabled = true;
 
 
 }
@@ -739,7 +729,10 @@ vector<string> QIntCalculator::QintC::GetStringInput(string s)
 		if (p == '<' || p == '>')
 		{
 			p3 = s.substr(n + 2, s.length() - 1);
-			p2 = p + p;
+			if (p == '<')
+				p2 = "<<";
+			else
+				p2 = ">>";
 		}
 		else
 		{
@@ -756,10 +749,18 @@ vector<string> QIntCalculator::QintC::GetStringInput(string s)
 	//Không có operator, là phép đổi cơ số
 	else
 	{
-		//cơ số đích, 0 tức là dữ liệu nhập từ bàn phím, sẽ đổi sang 2 hệ còn lại
-		str.push_back("0");
-		//đối tượng duy nhất
-		str.push_back(s);
+		if (n == 0)	//Tìm ở vị trí đầu
+		{
+			str.push_back("~");
+			str.push_back(s.substr(1, s.length() - 1));
+		}
+		else
+		{
+			//cơ số đích, 0 tức là dữ liệu nhập từ bàn phím, sẽ đổi sang 2 hệ còn lại
+			str.push_back("0");
+			//đối tượng duy nhất
+			str.push_back(s);
+		}		
 	}
 	return str;
 }
@@ -1033,6 +1034,21 @@ string QIntCalculator::QintC::EquationProcess(vector<string> s)
 	//3 phần tử: hệ - hệ đổi - main_obj (hệ đổi = 0 là đổi sang 2 hệ còn lại)
 	if (s.size() == 4)
 	{
+		/*vector<bool> obj;
+		if (s[2] == "~")
+		{
+			Qint tmp = BinToDec(obj);
+			~tmp;
+			obj = DecToBin(tmp);
+			switch (curNS)
+			{
+			case 2: ans = BinToStrBin(obj); break;
+			case 10: ans = BinToDecStr(obj); break;
+			case 16: ans = BinToHex(obj); break;
+			}
+			return ans;
+		}*/
+
 		Qint obj1, obj2;
 		//Chuyển số dạng chuỗi về vector bool
 		switch (curNS)
@@ -1058,26 +1074,21 @@ string QIntCalculator::QintC::EquationProcess(vector<string> s)
 		case '+': result = obj1 + obj2; break;
 		case '-': result = obj1 - obj2; break;
 		case '*': result = obj1 * obj2; break;
-			//case '/': result = obj1 / obj2; break;
+		case '/': result = obj1 / obj2; break;
 		case '&': result = obj1 & obj2; break;
 		case '|': result = obj1 | obj2; break;
 		case '^': result = obj1 ^ obj2; break;
-		case '~':
-		{
-			~obj1;
-			result = obj1;
-		}; break;
 		case '<':
 		{
 			int dec = 0;
-			Int32::TryParse(str_to_Str(BinToDecStr(DecToBin(obj2))), dec);
+			Int32::TryParse(str_to_Str(s[3]), dec);
 			obj1 << dec;
 			result = obj1;
 		}; break;
 		case '>':
 		{
 			int dec = 0;
-			Int32::TryParse(str_to_Str(BinToDecStr(DecToBin(obj2))), dec);
+			Int32::TryParse(str_to_Str(s[3]), dec);
 			obj1 >> dec;
 			result = obj1;
 		}; break;
@@ -1099,6 +1110,17 @@ string QIntCalculator::QintC::EquationProcess(vector<string> s)
 		case 10: obj = StrDecToBin(s[2]); break;
 		case 16: obj = HexToBin(s[2]); break;
 		}
+		if (s[1] == "~")
+		{
+			Qint tmp = BinToDec(obj);
+			~tmp;
+			switch (curNS)
+			{
+			case 2: return BinToStrBin(DecToBin(tmp));
+			case 10: return BinToDecStr(DecToBin(tmp));
+			case 16: return DecToHex(tmp);
+			}
+		}
 		int desNS; //destination numeral system = hệ đếm đích
 		Int32::TryParse(str_to_Str(s[1]), desNS);
 		switch (desNS)
@@ -1118,7 +1140,7 @@ string QIntCalculator::QintC::EquationProcess(vector<string> s)
 		}
 	}
 
-	while (ans[0] == '0')
+	while (ans[0] == '0' && ans.size()>1)
 		ans.erase(ans.begin());	
 	return ans;
 }

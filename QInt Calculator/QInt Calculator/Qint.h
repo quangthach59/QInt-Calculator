@@ -96,6 +96,17 @@ namespace QIntCalculator {
 			}
 			return kq;
 		}
+		void SetBit(Qint &a, int bit, int i)
+		{
+			if (bit == 0)
+			{
+				a.data[i / 32] &= ~(1 << 31 - (i % 32));
+			}
+			else
+			{
+				a.data[i / 32] |= (1 << 31 - (i % 32));
+			}
+		}
 		vector<bool> addBIN(vector<bool> a, vector<bool> b) {
 			vector<bool> kq(128);
 			int nho_Tam = 0;
@@ -210,17 +221,92 @@ namespace QIntCalculator {
 			vector<bool> a2 = DecToBin(x);
 			return BinToDec(subtractBIN(a1, a2));
 		};
-		Qint operator *(Qint &x)
+	/*	Qint operator *(Qint &x)
 		{
-			Qint temp = *this;
+			Qint A;
+			int q = 0;
 			for (int i = 0; i < 128; i++)
 			{
-				if (GetBit(x, i) == (int)true && i>0)
+				if (GetBit(*this, 0) != q)
 				{
-					*this = *this + temp;
+					if (q == 1)
+						A = A + x;
+					else
+						A = A - x;
 				}
-				temp << 1;
+				q = GetBit(*this, 0);
+				int bit = GetBit(A, 0);
+				A >> 1;
+				*this >> 1;
+				SetBit(*this, bit, 0);
 			}
+			return *this;
+		}*/
+		Qint operator*(Qint x)
+		{
+			Qint temp;
+			Qint temp1 = *this;
+			for (int i = 0; i < 128; i++)
+			{
+				if (GetBit(x, i) == true)
+				{
+					temp = temp + temp1;
+				}
+				temp1 << 1;
+			}
+			return temp;
+		}
+		Qint operator/(Qint M)
+		{
+			Qint A;
+			bool KhacDau = GetBit(*this, 127) ^ GetBit(*this, 127);
+			if (GetBit(*this, 127) == 1)
+			{
+				A.data[0] = A.data[1] = A.data[2] = A.data[3] = -1;
+			}
+			for (int i = 0; i < 128; i++)
+			{
+				int bit = GetBit(*this, 127);
+				A << 1;
+				*this << 1;
+				SetBit(A, bit, 127);
+				int bitA = GetBit(A, 127);
+				Qint ABackup = A;
+				if (GetBit(A, 127) ^ GetBit(M, 127) == 0)
+				{
+					A = A - M;
+				}
+				else
+				{
+					A = A + M;
+				}
+				if (bitA == GetBit(A, 127))
+				{
+					SetBit(*this, 1, 127);
+				}
+				else
+				{
+					A = ABackup;
+					SetBit(*this, 0, 127);
+				}
+			}
+			if (KhacDau)
+			{
+				for (int i = 0; i < 128; i++)
+				{
+					data[i / 32] ^= (1 << 31 - (i % 32));
+				}
+				int k = 1;
+				for (int i = 127; i >= 0; i--)
+				{
+					if (k == 1)
+					{
+						if (((data[i / 32] >> 31 - (i % 32)) & 1) == 0) k = 0;
+						data[i / 32] ^= (1 << 31 - (i % 32));
+					}
+				}
+			}
+			M = A;
 			return *this;
 		}
 	};

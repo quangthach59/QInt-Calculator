@@ -315,7 +315,6 @@ namespace QIntCalculator {
 			// 
 			// btnSRight
 			// 
-			this->btnSRight->Enabled = false;
 			this->btnSRight->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSRight->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -330,7 +329,6 @@ namespace QIntCalculator {
 			// 
 			// btnSLeft
 			// 
-			this->btnSLeft->Enabled = false;
 			this->btnSLeft->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSLeft->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -345,7 +343,6 @@ namespace QIntCalculator {
 			// 
 			// btnNot
 			// 
-			this->btnNot->Enabled = false;
 			this->btnNot->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnNot->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -360,7 +357,6 @@ namespace QIntCalculator {
 			// 
 			// btnXor
 			// 
-			this->btnXor->Enabled = false;
 			this->btnXor->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnXor->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -375,7 +371,6 @@ namespace QIntCalculator {
 			// 
 			// btnOr
 			// 
-			this->btnOr->Enabled = false;
 			this->btnOr->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnOr->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
@@ -390,7 +385,6 @@ namespace QIntCalculator {
 			// 
 			// btnAnd
 			// 
-			this->btnAnd->Enabled = false;
 			this->btnAnd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnAnd->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
