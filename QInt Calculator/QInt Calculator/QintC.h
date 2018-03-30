@@ -63,9 +63,6 @@ namespace QIntCalculator {
 		System::Windows::Forms::Button^  btn1;
 #pragma endregion
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~QintC()
 		{
 			if (components)
@@ -73,12 +70,7 @@ namespace QIntCalculator {
 				delete components;
 			}
 		};
-
-
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
@@ -334,6 +326,7 @@ namespace QIntCalculator {
 			this->btnSRight->TabIndex = 52;
 			this->btnSRight->Text = L">>";
 			this->btnSRight->UseVisualStyleBackColor = true;
+			this->btnSRight->Click += gcnew System::EventHandler(this, &QintC::btnSRight_Click);
 			// 
 			// btnSLeft
 			// 
@@ -348,6 +341,7 @@ namespace QIntCalculator {
 			this->btnSLeft->TabIndex = 51;
 			this->btnSLeft->Text = L"<<";
 			this->btnSLeft->UseVisualStyleBackColor = true;
+			this->btnSLeft->Click += gcnew System::EventHandler(this, &QintC::btnSLeft_Click);
 			// 
 			// btnNot
 			// 
@@ -719,7 +713,7 @@ namespace QIntCalculator {
 	private: void AddToInput(String^ s) {
 		instance->tbInput->Paste(s);
 	};
-	private:
+	public:
 		//Chuyển đổi System::String → string C++
 		string Str_to_str(String^ s);
 		//Chuyển đổi string C++ → System::String
@@ -729,7 +723,6 @@ namespace QIntCalculator {
 		string Power(int n);
 		string Sum(string a, string b);
 		string NoName(string a);
-
 		string BinToDecStr(vector<bool> Bin);
 		Qint BinToDec(vector<bool> x);
 		int IntDiv2(string &Dec);
@@ -745,6 +738,40 @@ namespace QIntCalculator {
 		Qint HexToDec(string Hex);
 		void PrintQInt(Qint Q);
 		int GetBit(Qint a, int i);
+		string BinToStrBin(vector<bool> x);
+		//Tổ hợp hàm chuỗi 2 -> chuỗi 10
+		string StrBinToStrDec(string Bin);
+		//Tổ hợp hàm chuỗi 10 -> chuỗi 2
+		string StrDecToStrBin(string Dec);
+		//Tổ hợp hàm chuỗi 2 -> chuỗi 16
+		string StrBinToStrHex(string Bin);
+		//Tổ hợp hàm chuỗi 16 -> chuỗi 2
+		string StrHexToStrBin(string Hex);
+		//Tổ Hợp hàm chuỗi 10 -> chuỗi 16
+		string StrDecToStrHex(string Dec);
+		//Tổ hợp hàm chuỗi 16 -> chuỗi 10
+		string StrHexToStrDec(string Hex);
+
+		//Tổ hợp hàm dịch trái Qint
+		//n là số lần muốn dịch
+		string ShiftLeft_StrDec(string Dec, int n);
+		//Tổ hợp hàm dịch phải Qint
+		//n là số lần muốn dịch
+		string ShiftRight_StrDec(string Dec, int n);
+
+		//Tổ hợp hàm AND string Dec
+		string AndStrDec(string Dec1, string Dec2);
+		//Tổ hợp hàm OR string Dec
+		string OrStrDec(string Dec1, string Dec2);
+		//Tổ hợp hàm XOR string Dec
+		string XorStrDec(string Dec1, string Dec2);
+		//Tổ hợp hàm NOT string Dec
+		string NotStrDec(string Dec);
+
+		//Tổ hợp hàm cộng 2 chuỗi Dec
+		string SumStrDec(string Dec1, string Dec2);
+		//Tổ hợp hàm trừ 2 chuỗi Dec
+		string SubtractStrDec(string Dec1, string Dec2);
 		void timViTriSet(int &vitri, int i);
 		void ScanQInt(Qint &x);
 		//void operator~();
@@ -754,10 +781,13 @@ namespace QIntCalculator {
 		vector<string> GetStringInputFromFile(string s);
 		vector<bool> addBIN(vector<bool> a, vector<bool> b);
 		vector<bool> subtractBIN(vector<bool> a, vector<bool> b);
+
+		// Phép AND nhị phân
 		vector<bool> andBIN(vector<bool> a, vector<bool> b);
 		vector<bool> orBIN(vector<bool> a, vector<bool> b);
 		vector<bool> xorBIN(vector<bool> a, vector<bool> b);
 		vector<bool> notBIN(vector<bool> a);
+
 		vector<bool> divideBIN(vector<bool> Q, vector<bool> M);
 		vector<bool> shiftLEFT(vector<bool> a, int b);
 		vector<bool> tachBIT(vector <bool> a, int x, int y);
@@ -799,6 +829,8 @@ namespace QIntCalculator {
 	private: System::Void rbHEX_CheckedChanged(Object^  sender, EventArgs^  e);
 	private: System::Void rbDEC_CheckedChanged(Object^  sender, EventArgs^  e);
 	private: System::Void rbBIN_CheckedChanged(Object^  sender, EventArgs^  e);
+	private: System::Void btnSLeft_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void btnSRight_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void QintC_KeyPress(Object^  sender, KeyPressEventArgs^  e) {
 		switch (e->KeyChar)
 		{
@@ -826,6 +858,8 @@ namespace QIntCalculator {
 		case '|': btnOr_Click(sender, e); break;
 		case '^': btnXor_Click(sender, e); break;
 		case '~': btnNot_Click(sender, e); break;
+		case '<': btnSLeft_Click(sender, e); break;
+		case '>': btnSRight_Click(sender, e); break;
 		case 8: btnDel_Click(sender, e); break;	//Mã ASCII của phím backspace
 		case 13: case '=': btnEqual_Click(sender, e); break; //Nhấn enter hoặc dấu =, xem như kết thúc phép tính
 		}
@@ -845,7 +879,7 @@ namespace QIntCalculator {
 		while (f->EndOfStream == 0)
 		{
 			s = Str_to_str(f->ReadLine());
-			
+
 			WriteAnswerToFile(str_to_Str(EquationProcess(GetStringInputFromFile(s))));
 		}
 		MessageBox::Show("Answers written to " + Environment::CurrentDirectory + "\\output.txt!", "Qint Calculator");
